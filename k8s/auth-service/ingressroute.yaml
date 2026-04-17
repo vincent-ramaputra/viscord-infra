@@ -1,0 +1,18 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: auth
+  labels:
+    app: auth
+spec:
+  entryPoints:
+    - web
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`viscord.local`) && PathPrefix(`/api/auth`)
+      services:
+        - name: auth
+          port: 3000
+      middlewares:
+        - name: strip-api-prefix

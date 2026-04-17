@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: guild
+  labels:
+    app: guild
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: guild
+  template:
+    metadata:
+      labels:
+        app: guild
+    spec:
+      containers:
+      - name: guild
+        image: vincentramaputra/viscord-guild-service:sha-89f221a
+        envFrom:
+        - configMapRef:
+            name: guild
+        - secretRef:
+            name: guild
+        ports:
+        - containerPort: 3000
+          name: http

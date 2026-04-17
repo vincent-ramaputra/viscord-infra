@@ -1,0 +1,33 @@
+api:
+  dashboard: true
+  insecure: true
+
+ingressRoute:
+  dashboard:
+    enabled: true
+    entryPoints:
+      - web
+      - traefik
+    matchRule: Host(`localhost`)
+service:
+  type: NodePort
+
+providers:
+  kubernetesCRD:
+    enabled: true
+  kubernetesIngress:
+    enabled: true
+  kubernetesGateway:
+    enabled: false
+
+ports:
+  web:
+    port: 80
+    nodePort: 30080
+  websecure:
+    port: 443
+    nodePort: 30443
+
+logs:
+  general:
+    level: DEBUG

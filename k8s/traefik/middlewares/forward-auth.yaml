@@ -1,0 +1,9 @@
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: forward-auth
+  labels:
+    app: traefik
+spec:
+  forwardAuth:
+    address:  http://auth.default.svc.cluster.local:3000/auth/verify-token

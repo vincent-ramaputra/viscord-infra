@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: guild
+  labels:
+    app: guild
+spec:
+  selector:
+    app: guild
+  ports:
+  - protocol: TCP
+    port: 3000
+    targetPort: http

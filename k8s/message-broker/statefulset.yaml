@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: message-broker
+  labels:
+    app: message-broker
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: message-broker
+  template:
+    metadata:
+      labels:
+        app: message-broker
+    spec:
+      containers:
+        - name: rabbitmq
+          image: rabbitmq:4.0-management
+          ports:
+            - containerPort: 15672
+              name: rmq-dashboard
+            - containerPort: 5672
+              name: rmq-api

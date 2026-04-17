@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: auth-db
+  labels:
+    app: auth-db
+data:
+  POSTGRES_DB: viscord_auth

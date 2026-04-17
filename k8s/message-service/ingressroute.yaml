@@ -1,0 +1,18 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: guild
+  labels:
+    app: guild
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`viscord.local`) && PathPrefix(`/api/messages`) || PathRegexp(`^/api/channels/.+/messages`)
+      services:
+        - name: message
+          port: 3000
+      middlewares:
+        - name: forward-auth
+        - name: strip-api-prefix

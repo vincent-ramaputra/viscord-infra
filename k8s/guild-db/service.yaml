@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: guild-db
+  labels:
+    app: guild-db
+spec:
+  selector:
+    app: guild-db
+  ports:
+  - protocol: TCP
+    port: 5432
+    targetPort: db
