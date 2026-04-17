@@ -1,25 +1,3 @@
-terraform {
-  cloud {
-    organization = "vincent_solo_team"
-
-    workspaces {
-      name = "gke-cluster"
-    }
-  }
-
-  required_providers {
-    google = {
-      source  = "hashicorp/google"
-      version = "7.20.0"
-    }
-  }
-}
-
-provider "google" {
-  project = "project-d29ff022-8c65-49c1-9db"
-  zone    = "asia-southeast2-a"
-}
-
 resource "google_container_cluster" "dev_cluster" {
   name = "dev-cluster"
 
@@ -27,21 +5,4 @@ resource "google_container_cluster" "dev_cluster" {
 
   remove_default_node_pool = true
   initial_node_count       = 1
-}
-
-resource "google_container_node_pool" "dev_pool" {
-  name       = "dev-pool"
-  cluster    = google_container_cluster.dev_cluster.name
-  node_count = 3
-
-  node_config {
-    spot         = true
-    machine_type = "e2-small"
-    service_account = "gke-node@project-d29ff022-8c65-49c1-9db.iam.gserviceaccount.com"
-
-    boot_disk {
-      disk_type = "pd-standard"
-      size_gb   = 40
-    }
-  }
 }
