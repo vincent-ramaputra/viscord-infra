@@ -1,7 +1,11 @@
+variable "dev_node_count" {
+    default = 3
+}
+
 resource "google_container_node_pool" "dev_pool" {
   name       = "dev-pool"
   cluster    = google_container_cluster.dev_cluster.name
-  node_count = 3
+  node_count = var.dev_node_count
 
   node_config {
     spot         = true

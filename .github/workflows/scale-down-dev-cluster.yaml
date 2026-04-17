@@ -1,0 +1,20 @@
+name: Scale down dev cluster nodes to 0
+
+on:
+  schedule:
+    - cron: "0 0 * * *"
+
+jobs:
+  scale-down:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./terraform
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v4
+        with:
+          cli_config_credentials_token: ${{ secrets.HCP_API_TOKEN }}
+      - name: Perform node scaling
+        run:  terraform apply -var "dev_node_count=0" -auto-approve
