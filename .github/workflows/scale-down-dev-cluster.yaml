@@ -3,12 +3,6 @@ name: Scale down dev cluster nodes to 0
 on:
   schedule:
     - cron: "0 21 * * *"
-  workflow_dispatch:
-    inputs:
-      reason:
-        description: "Reason for running"
-        required: false
-        default: "Manual run"
 
 jobs:
   scale-down:
