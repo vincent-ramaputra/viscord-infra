@@ -2,7 +2,8 @@ name: Scale down dev cluster nodes to 0
 
 on:
   schedule:
-    - cron: "0 21 * * *"
+    - cron: "5 21 * * *"
+      timezon: "Asia/Jakarta"
 
 jobs:
   scale-down:

@@ -3,6 +3,7 @@ name: Scale up dev cluster nodes to 3
 on:
   schedule:
     - cron: "0 7 * * *"
+      timezone: "Asia/Jakarta"
 
 
 jobs:

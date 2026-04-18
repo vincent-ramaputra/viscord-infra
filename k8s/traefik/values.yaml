@@ -8,9 +8,9 @@ ingressRoute:
     entryPoints:
       - web
       - traefik
-    matchRule: Host(`localhost`)
-service:
-  type: NodePort
+    # matchRule: Host(`localhost`)
+# service:
+#   type: LoadBalancer
 
 providers:
   kubernetesCRD:
