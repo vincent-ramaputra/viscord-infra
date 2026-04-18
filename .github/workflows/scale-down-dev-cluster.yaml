@@ -3,6 +3,12 @@ name: Scale down dev cluster nodes to 0
 on:
   schedule:
     - cron: "0 21 * * *"
+  workflow_dispatch:
+    inputs:
+      reason:
+        description: "Reason for running"
+        required: false
+        default: "Manual run"
 
 jobs:
   scale-down:
@@ -16,5 +22,6 @@ jobs:
         uses: hashicorp/setup-terraform@v4
         with:
           cli_config_credentials_token: ${{ secrets.HCP_API_TOKEN }}
+      - run: terraform init
       - name: Perform node scaling
         run:  terraform apply -var "dev_node_count=0" -auto-approve
