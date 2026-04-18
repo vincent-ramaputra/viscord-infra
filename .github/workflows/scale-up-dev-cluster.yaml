@@ -3,9 +3,16 @@ name: Scale up dev cluster nodes to 3
 on:
   schedule:
     - cron: "0 7 * * *"
+  workflow_dispatch:
+    inputs:
+      reason:
+        description: "Reason for running"
+        required: false
+        default: "Manual run"
+
 
 jobs:
-  scale-down:
+  scale-up:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -16,5 +23,6 @@ jobs:
         uses: hashicorp/setup-terraform@v4
         with:
           cli_config_credentials_token: ${{ secrets.HCP_API_TOKEN }}
+      - run: terraform init
       - name: Perform node scaling
-        run:  terraform apply -var "dev_node_count=3" -auto-approve
+        run: terraform apply -var "dev_node_count=3" -auto-approve
