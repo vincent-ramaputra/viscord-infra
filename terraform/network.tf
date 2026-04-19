@@ -26,6 +26,7 @@ resource "google_compute_global_address" "dev_reserve" {
     address_type = "INTERNAL"
     address = "10.10.0.0"
     prefix_length = 16
+    network = google_compute_network.dev_network.id
 }
 
 # resource "google_compute_global_address" "prod_reserve" {

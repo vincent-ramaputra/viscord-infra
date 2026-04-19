@@ -18,7 +18,6 @@ resource "google_sql_database_instance" "viscord_dev" {
         ip_configuration {
           ipv4_enabled = false
           private_network = google_compute_network.dev_network.self_link
-
         }
     }
 }
