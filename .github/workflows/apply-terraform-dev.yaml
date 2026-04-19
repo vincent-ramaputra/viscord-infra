@@ -1,0 +1,33 @@
+name: Apply infrastructure changes detected in Terraform for dev environment
+
+on:
+  push:
+
+
+jobs:
+  apply-terraform:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./terraform
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v4
+        with:
+          cli_config_credentials_token: ${{ secrets.HCP_API_TOKEN }}
+      - run: terraform init
+      - name: Checking and applying changes
+        run:  |
+          terraform plan -detailed-exitcode -out=tf.plan
+          exit_code=$?
+
+          if [ $exit_code -eq 2]; then
+            echo "Diffs detected, applying changes..."
+            terraform apply -auto-approve tf.plan
+          elif [ $exit_code -eq 0]; then
+            echo "No diff detected, skipping apply..."
+          else
+            echo "Terraform failed"
+            exit 1
+          fi
