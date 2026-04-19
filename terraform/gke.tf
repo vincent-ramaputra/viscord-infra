@@ -8,4 +8,9 @@ resource "google_container_cluster" "dev_cluster" {
 
   network = google_compute_network.dev_network.id
   subnetwork = google_compute_subnetwork.dev_subnet.id
+
+  node_config {
+    service_account = "gke-node@project-d29ff022-8c65-49c1-9db.iam.gserviceaccount.com"
+  }
+
 }
