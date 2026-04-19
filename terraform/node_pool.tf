@@ -6,7 +6,7 @@ resource "google_container_node_pool" "dev_pool" {
   name       = "dev-pool"
   cluster    = google_container_cluster.dev_cluster.name
   node_count = var.dev_node_count
-  
+  location = "asia-southeast2-a"
 
   node_config {
     spot         = true
