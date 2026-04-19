@@ -1,9 +1,9 @@
 terraform {
   cloud {
     organization = "vincent_solo_team"
-
+  
     workspaces {
-      name = "gke-cluster"
+      name = "dev"
     }
   }
 
