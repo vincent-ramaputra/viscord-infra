@@ -11,6 +11,11 @@ resource "google_container_cluster" "dev_cluster" {
 
   node_config {
     service_account = "gke-node@project-d29ff022-8c65-49c1-9db.iam.gserviceaccount.com"
+
+    boot_disk {
+      disk_type = "pd-standard"
+      size_gb = 40
+    }
   }
 
 }
