@@ -1,0 +1,13 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: web-ingressroute
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`viscord.test`) && !PathPrefix(`/api`)
+      kind: Rule
+      services:
+        - name: web-service
+          port: 3000

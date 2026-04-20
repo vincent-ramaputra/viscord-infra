@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auth-deployment
+spec:
+  replicas: 1
+  template:
+    spec:
+      serviceAccountName: auth-ksa
+      containers:
+        - name: auth
+          image: vincentramaputra/viscord-auth-service
+          envFrom:
+          - configMapRef:
+              name: auth-config
+          - secretRef:
+              name: auth-secret
+          ports:
+          - name: http
+            containerPort: 3000
+        - name: cloud-sql-proxy
+          image: gcr.io/cloud-sql-connectors/cloud-sql-proxy:2.11.0

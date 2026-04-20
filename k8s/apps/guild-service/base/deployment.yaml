@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: guild-deployment
+spec:
+  selector:
+    matchLabels:
+      app: guild
+  template:
+    metadata:
+    spec:
+      serviceAccountName: guild-ksa
+      containers:
+      - name: guild
+        image: vincentramaputra/viscord-guild-service
+        envFrom:
+        - configMapRef:
+            name: guild-config
+        - secretRef:
+            name: guild-secret
+        ports:
+        - name: http
+          containerPort: 3000
+        - name: grpc
+          containerPort: 5000
+      - name: cloud-sql-proxy
+        image: gcr.io/cloud-sql-connectors/cloud-sql-proxy:2.11.0

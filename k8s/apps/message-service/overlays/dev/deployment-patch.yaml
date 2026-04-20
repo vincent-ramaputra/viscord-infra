@@ -1,0 +1,16 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: message-deployment
+spec:
+  replicas: 1
+  template:
+    spec:
+      containers:
+        - name: message
+          image: vincentramaputra/viscord-message-service:sha-67f3beb
+        - name: cloud-sql-proxy
+          args:
+            - "-p=5432"
+            - "--private-ip"
+            - "project-d29ff022-8c65-49c1-9db:asia-southeast2:viscord-dev"

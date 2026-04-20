@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: message-deployment
+spec:
+  template:
+    spec:
+      serviceAccountName: message-ksa
+      containers:
+      - name: message
+        image: vincentramaputra/viscord-message-service
+        envFrom:
+        - configMapRef:
+            name: message-config
+        - secretRef:
+            name: message-secret
+        ports:
+        - name: http
+          containerPort: 3000
+        - name: grpc
+          containerPort: 5000
+      - name: cloud-sql-proxy
+        image: gcr.io/cloud-sql-connectors/cloud-sql-proxy:2.11.0

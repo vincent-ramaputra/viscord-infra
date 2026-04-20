@@ -1,0 +1,16 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auth-deployment
+spec:
+  replicas: 1
+  template:
+    spec:
+      containers:
+        - name: auth
+          image: vincentramaputra/viscord-auth-service:sha-8b8f623
+        - name: cloud-sql-proxy
+          args:
+            - "-p=5432"
+            - "--private-ip"
+            - "project-d29ff022-8c65-49c1-9db:asia-southeast2:viscord-dev"

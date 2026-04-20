@@ -1,0 +1,22 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../../base
+  - ./ingressroute.yaml
+configMapGenerator:
+  - name: guild-config
+    envs:
+      - ./config.env
+secretGenerator:
+  - name: guild-secret
+    envs:
+      - ./secret.env
+generatorOptions:
+  labels:
+    app: guild
+patches:
+  - target:
+      kind: Deployment
+      name: guild-deployment
+    path: ./deployment-patch.yaml
+  - path: ./serviceaccount-patch.yaml

@@ -1,0 +1,19 @@
+api:
+  dashboard: false
+  insecure: false
+
+ingressRoute:
+  dashboard:
+    enabled: false
+
+providers:
+  kubernetesCRD:
+    enabled: true
+  kubernetesIngress:
+    enabled: true
+  kubernetesGateway:
+    enabled: false
+
+logs:
+  general:
+    level: INFO

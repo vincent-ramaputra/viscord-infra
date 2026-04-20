@@ -1,0 +1,16 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: ws-gateway-ingressroute
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`viscord.local`) && (PathPrefix(`/ws`) || PathPrefix(`/socket.io`))
+      middlewares:
+        - name: forward-auth
+      services:
+        - name: ws-gateway-service
+          port: 80
+

@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-deployment
+spec:
+  template:
+    spec:
+      containers:
+        - name: user
+          image: vincentramaputra/viscord-user-service:sha-8615173
+          envFrom:
+          - configMapRef:
+              name: user-config
+          - secretRef:
+              name: user-secret
+          ports:
+          - name: http
+            containerPort: 3000
+          - name: grpc
+            containerPort: 5000
+        - name: cloud-sql-proxy
+          image: gcr.io/cloud-sql-connectors/cloud-sql-proxy:2.11.0

@@ -1,0 +1,16 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ws-gateway-deployment
+spec:
+  template:
+    spec:
+      containers:
+      - name: ws-gateway
+        image: vincentramaputra/viscord-ws-gateway
+        envFrom:
+        - configMapRef:
+            name: ws-gateway-config
+        ports:
+        - name: http
+          containerPort: 80

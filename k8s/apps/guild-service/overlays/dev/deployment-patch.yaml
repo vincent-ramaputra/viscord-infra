@@ -1,0 +1,16 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: guild-deployment
+spec:
+  replicas: 1
+  template:
+    spec:
+      containers:
+        - name: guild
+          image: vincentramaputra/viscord-guild-service:sha-89f221a
+        - name: cloud-sql-proxy
+          args:
+            - "-p=5432"
+            - "--private-ip"
+            - "project-d29ff022-8c65-49c1-9db:asia-southeast2:viscord-dev"

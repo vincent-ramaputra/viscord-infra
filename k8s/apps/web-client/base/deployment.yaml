@@ -1,0 +1,13 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-deployment
+spec:
+  template:
+    spec:
+      containers:
+      - name: web
+        image: vincentramaputra/viscord-web:sha-70e060a
+        ports:
+        - containerPort: 3000
+          name: http

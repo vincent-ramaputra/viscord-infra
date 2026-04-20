@@ -1,0 +1,17 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-deployment
+spec:
+  replicas: 1
+  template:
+    spec:
+      containers:
+        - name: user
+          image: vincentramaputra/viscord-user-service:sha-8615173
+        - name: cloud-sql-proxy
+          args:
+            - "-p=5432"
+            - "--private-ip"
+            - "project-d29ff022-8c65-49c1-9db:asia-southeast2:viscord-dev"
+    
