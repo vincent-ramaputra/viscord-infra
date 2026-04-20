@@ -1,4 +1,4 @@
-name: Scale up dev cluster nodes to 3
+name: Scale up dev cluster nodes to 1
 
 on:
   schedule:
@@ -19,4 +19,4 @@ jobs:
           cli_config_credentials_token: ${{ secrets.HCP_API_TOKEN }}
       - run: terraform init
       - name: Perform node scaling
-        run: terraform apply -var "dev_node_count=3" -auto-approve
+        run: terraform apply -var "dev_node_count=1" -auto-approve
