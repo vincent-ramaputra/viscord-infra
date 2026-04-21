@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: auth-configmap
+  labels:
+    app: auth
+data:
+  NODE_ENV: "production"
+  APP_PORT: "3000"
+  DB_HOST: "localhost"
+  DB_PORT: "5432"
+  DB_NAME: "viscord_auth"
+  USER_SERVICE_HOST: "user-service"
+  USER_SERVICE_PORT: "3000"
+  RMQ_HOST: "message-broker-service"
+  RMQ_PORT: "5672"
+
