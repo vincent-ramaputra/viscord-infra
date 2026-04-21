@@ -12,7 +12,7 @@ spec:
           image: vincentramaputra/viscord-auth-service
           envFrom:
           - configMapRef:
-              name: auth-config
+              name: auth-configmap
           - secretRef:
               name: auth-secret
           ports:
