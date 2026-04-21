@@ -10,7 +10,7 @@ resource "google_container_node_pool" "dev_pool" {
 
   node_config {
     spot         = true
-    machine_type = "e2-small"
+    machine_type = "e2-medium"
     service_account = "gke-node@project-d29ff022-8c65-49c1-9db.iam.gserviceaccount.com"
 
     boot_disk {
