@@ -17,4 +17,5 @@ spec:
       prune: true
       selfHeal: true
     retry:
+      refresh: true
       limit: -1
