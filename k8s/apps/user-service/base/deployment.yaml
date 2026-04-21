@@ -10,7 +10,7 @@ spec:
           image: vincentramaputra/viscord-user-service:sha-8615173
           envFrom:
           - configMapRef:
-              name: user-config
+              name: user-configmap
           - secretRef:
               name: user-secret
           ports:

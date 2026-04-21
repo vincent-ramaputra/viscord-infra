@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: message-configmap
+  labels:
+    app: message
+data:
+  DB_URL: jdbc:postgresql://localhost:5432/viscord_message
+  GUILD_SERVICE_GRPC_ADDR: guild-service:5000
+  # AWS_REGION:
+  # S3_BUCKET_NAME:

@@ -3,17 +3,8 @@ kind: Kustomization
 resources:
   - ../../base
   - ./ingressroute.yaml
-configMapGenerator:
-  - name: message-config
-    envs:
-      - ./config.env
-secretGenerator:
-  - name: message-secret
-    envs:
-      - ./secret.env
-generatorOptions:
-  labels:
-    app: message
+  - ./secret.yaml
+  - ./configmap.yaml
 patches:
   - path: ./deployment-patch.yaml
   - path: ./serviceaccount-patch.yaml

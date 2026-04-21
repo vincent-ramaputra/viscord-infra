@@ -3,12 +3,6 @@ kind: Kustomization
 resources:
   - ../../base
   - ./ingressroute.yaml
-configMapGenerator:
-  - name: ws-gateway-config
-    envs:
-      - ./config.env
-generatorOptions:
-  labels:
-    app: ws-gateway
+  - ./configmap.yaml
 patches:
   - path: ./deployment-patch.yaml

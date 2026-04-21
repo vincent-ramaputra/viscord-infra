@@ -15,7 +15,7 @@ spec:
         image: vincentramaputra/viscord-guild-service
         envFrom:
         - configMapRef:
-            name: guild-config
+            name: guild-configmap
         - secretRef:
             name: guild-secret
         ports:

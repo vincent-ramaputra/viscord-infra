@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: guild-configmap
+  labels:
+    app: guild
+data:
+  APP_PORT: "3000"
+  GRPC_PORT: "5000"
+  DB_HOST: "localhost"
+  DB_PORT: "5432"
+  DB_NAME: "viscord_guild"
+  USER_SERVICE_HOST: "user-service"
+  USER_SERVICE_PORT: "3000"
+  MESSAGE_SERVICE_HOST: "message-service"
+  MESSAGE_SERVICE_PORT: "3000"
+  RMQ_HOST: "message-broker-service"
+  RMQ_PORT: "5672"

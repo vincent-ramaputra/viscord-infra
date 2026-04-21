@@ -10,7 +10,7 @@ spec:
         image: vincentramaputra/viscord-ws-gateway
         envFrom:
         - configMapRef:
-            name: ws-gateway-config
+            name: ws-gateway-configmap
         ports:
         - name: http
           containerPort: 80

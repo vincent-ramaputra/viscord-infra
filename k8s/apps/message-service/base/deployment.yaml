@@ -11,7 +11,7 @@ spec:
         image: vincentramaputra/viscord-message-service
         envFrom:
         - configMapRef:
-            name: message-config
+            name: message-configmap
         - secretRef:
             name: message-secret
         ports:
