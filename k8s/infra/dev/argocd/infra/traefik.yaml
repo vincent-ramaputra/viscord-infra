@@ -11,7 +11,7 @@ spec:
     path: k8s/infra/dev/traefik/overlays/dev
   destination:
     server: https://kubernetes.default.svc
-    namespace: argocd
+    namespace: traefik
   syncPolicy:
     automated:
       prune: true
