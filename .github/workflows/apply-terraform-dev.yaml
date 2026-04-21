@@ -2,7 +2,10 @@ name: Apply infrastructure changes detected in Terraform for dev environment
 
 on:
   push:
-
+    branches:
+      - main
+    paths:
+      - 'terraform/**'
 
 jobs:
   apply-terraform:
