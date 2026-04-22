@@ -9,3 +9,4 @@ labels:
     includeTemplates: true
     pairs:
       app: user
+      test: testtt
