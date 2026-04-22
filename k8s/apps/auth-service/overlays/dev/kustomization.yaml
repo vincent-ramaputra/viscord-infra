@@ -3,7 +3,7 @@ kind: Kustomization
 namespace: default
 labels:
   - pairs:
-      test: label
+      test: labelzz
 resources:
   - ../../base
   - ./ingressroute.yaml
