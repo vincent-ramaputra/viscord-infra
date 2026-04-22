@@ -3,7 +3,7 @@ kind: Kustomization
 namespace: traefik
 labels:
   - pairs:
-      test: labelz
+      test: label
 resources:
   - ../../base
   - ./resources.yaml
