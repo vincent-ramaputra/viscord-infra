@@ -9,7 +9,7 @@ spec:
     - websecure
   routes:
     - kind: Rule
-      match: Host(`viscord.local`) && PathPrefix(`/api/messages`) || PathRegexp(`^/api/channels/.+/messages`)
+      match: Host(`viscord.test`) && PathPrefix(`/api/messages`) || PathRegexp(`^/api/channels/.+/messages`)
       services:
         - name: message-service
           port: 3000
