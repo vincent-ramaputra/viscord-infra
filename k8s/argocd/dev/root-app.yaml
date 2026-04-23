@@ -8,10 +8,10 @@ spec:
   sources:
     - repoURL: https://github.com/Laevateinn17/viscord-infra.git
       targetRevision: HEAD
-      path: k8s/argocd/dev/apps
+      path: k8s/argocd/dev/infra
     - repoURL: https://github.com/Laevateinn17/viscord-infra.git
       targetRevision: HEAD
-      path: k8s/argocd/dev/infra
+      path: k8s/argocd/dev/apps
   destination:
     server: https://kubernetes.default.svc
     namespace: argocd
