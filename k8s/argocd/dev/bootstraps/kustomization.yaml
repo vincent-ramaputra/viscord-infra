@@ -3,8 +3,8 @@ kind: Kustomization
 namespace: argocd
 resources:
   - ./infra-repo-secret.yaml
-  - argocd-secret.yaml
-  - argocd-cmd-params-cm.yaml
+  - ./argocd-secret.yaml
+  - ./argocd-cmd-params-cm.yaml
 labels:
   - pairs:
       app.kubernetes.io/part-of: argocd

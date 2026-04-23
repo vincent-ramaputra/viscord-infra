@@ -8,9 +8,6 @@ spec:
   sources:
     - repoURL: https://github.com/Laevateinn17/viscord-infra.git
       targetRevision: HEAD
-      path: k8s/argocd/dev/bootstraps
-    - repoURL: https://github.com/Laevateinn17/viscord-infra.git
-      targetRevision: HEAD
       path: k8s/argocd/dev/apps
     - repoURL: https://github.com/Laevateinn17/viscord-infra.git
       targetRevision: HEAD
