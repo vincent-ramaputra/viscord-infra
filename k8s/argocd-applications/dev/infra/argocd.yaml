@@ -6,9 +6,9 @@ metadata:
 spec:
   project: default
   source:
-    - repoURL: https://github.com/Laevateinn17/viscord-infra.git
-      targetRevision: HEAD
-      path: k8s/infra/argocd/overlays/dev
+    repoURL: https://github.com/Laevateinn17/viscord-infra.git
+    targetRevision: HEAD
+    path: k8s/infra/argocd/overlays/dev
   destination:
     server: https://kubernetes.default.svc
     namespace: kube-system
