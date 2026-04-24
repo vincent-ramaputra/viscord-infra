@@ -19,3 +19,5 @@ spec:
     retry:
       limit: -1
       refresh: true
+    syncOptions:
+      - ServerSideApply=True
