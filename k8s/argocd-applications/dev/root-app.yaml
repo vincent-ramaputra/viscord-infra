@@ -1,23 +1,20 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: traefik-dev
+  name: root-app-dev
   namespace: argocd
 spec:
   project: default
   sources:
-    - chart: traefik
-      repoURL: https://traefik.github.io/charts
-      targetRevision: 39.0.7
-      helm:
-        valueFiles: 
-          - $values/k8s/infra/traefik/values/dev.yaml
     - repoURL: https://github.com/Laevateinn17/viscord-infra.git
       targetRevision: HEAD
-      ref: values
+      path: k8s/argocd-applications/dev/apps
+    - repoURL: https://github.com/Laevateinn17/viscord-infra.git
+      targetRevision: HEAD
+      path: k8s/argocd-applications/dev/infra
   destination:
     server: https://kubernetes.default.svc
-    namespace: traefik
+    namespace: argocd
   syncPolicy:
     automated:
       prune: true
@@ -25,6 +22,3 @@ spec:
     retry:
       limit: -1
       refresh: true
-    syncOptions:
-      - PruneLast=True
-      - CreateNamespace=True
