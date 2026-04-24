@@ -4,7 +4,7 @@ namespace: argocd
 resources:
   - ../../base
   - ./infra-repo-secret.yaml
-  - ./argocd-secret.yaml
+  # - ./argocd-secret.yaml
   - ./ingressroute.yaml
   - https://raw.githubusercontent.com/argoproj/argo-cd/refs/tags/v3.3.7/manifests/install.yaml
 patches:
