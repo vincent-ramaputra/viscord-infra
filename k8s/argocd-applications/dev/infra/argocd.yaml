@@ -20,4 +20,4 @@ spec:
       limit: -1
       refresh: true
     syncOptions:
-      - ServerSideApply=True
+      - ServerSideApply=true
