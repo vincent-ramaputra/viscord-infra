@@ -1,6 +1,7 @@
 #!/bin/bash
 
-kubectl apply -f https://github.com/bitnami-labs/sealed-secrets/releases/download/v0.36.6/controller.yaml
+helm repo add external-secrets https://charts.external-secrets.io
+helm install external-secrets external-secrets/external-secrets -n external-secrets --create-namespace
 
 kubectl apply -k infra/argocd/overlays/dev/ --server-side
 
