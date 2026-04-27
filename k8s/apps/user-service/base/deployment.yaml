@@ -5,6 +5,7 @@ metadata:
 spec:
   template:
     spec:
+      serviceAccountName: user-ksa
       containers:
         - name: user
           image: vincentramaputra/viscord-user-service:sha-8615173
