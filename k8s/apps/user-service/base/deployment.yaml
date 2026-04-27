@@ -8,7 +8,7 @@ spec:
       serviceAccountName: user-ksa
       containers:
         - name: user
-          image: vincentramaputra/viscord-user-service:sha-8615173
+          image: vincentramaputra/viscord-user-service
           envFrom:
           - configMapRef:
               name: user-configmap

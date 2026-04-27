@@ -7,8 +7,6 @@ spec:
   template:
     spec:
       containers:
-        - name: user
-          image: vincentramaputra/viscord-user-service:sha-8615173
         - name: cloud-sql-proxy
           args:
             - "-p=5432"

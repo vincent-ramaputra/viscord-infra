@@ -7,8 +7,6 @@ spec:
   template:
     spec:
       containers:
-        - name: guild
-          image: vincentramaputra/viscord-guild-service:sha-89f221a
         - name: cloud-sql-proxy
           args:
             - "-p=5432"
