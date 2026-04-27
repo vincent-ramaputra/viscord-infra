@@ -3,3 +3,4 @@ kind: Kustomization
 resources:
   - ./middlewares/forward-auth.yaml
   - ./middlewares/strip-api-prefix.yaml
+  - ./middlewares/redirect-https.yaml

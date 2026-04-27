@@ -11,13 +11,10 @@ spec:
       targetRevision: 39.0.7
       helm:
         valueFiles: 
-          - $values/k8s/infra/traefik/values/dev.yaml
+          - $values/k8s/infra/traefik/values/dev/values.yaml
     - repoURL: https://github.com/Laevateinn17/viscord-infra.git
       targetRevision: HEAD
       ref: values
-    - repoURL: https://github.com/Laevateinn17/viscord-infra.git
-      targetRevision: HEAD
-      path: k8s/infra/traefik/overlays/dev
   destination:
     server: https://kubernetes.default.svc
     namespace: traefik
