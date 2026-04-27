@@ -21,6 +21,14 @@ service:
   spec:
     loadBalancerIP: 34.101.89.196
 
+entryPoints:
+  web:
+    http:
+      redirections:
+        entryPoints:
+          to: websecure
+          scheme: https
+
 logs:
   general:
     level: DEBUG
