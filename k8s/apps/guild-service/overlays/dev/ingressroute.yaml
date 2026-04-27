@@ -9,7 +9,7 @@ spec:
     - websecure
   routes:
     - kind: Rule
-      match: Host(`viscord.test`) && (PathPrefix(`/api/guilds`) || PathPrefix(`/api/users/me/channels`) || PathPrefix(`/api/invites`) || (PathPrefix(`/api/channels`) && !PathRegexp(`^/api/channels/.+/messages`))
+      match: Host(`viscord.test`) && (PathPrefix(`/api/guilds`) || PathPrefix(`/api/users/me/channels`) || PathPrefix(`/api/invites`) || (PathPrefix(`/api/channels`) && !PathRegexp(`^/api/channels/.+/messages`)))
       services:
         - name: guild-service
           port: 3000
