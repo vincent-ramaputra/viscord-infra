@@ -13,5 +13,5 @@ spec:
       services:
         - name: auth-service
           port: 3000
-      # middlewares:
-      #   - name: strip-api-prefix
+      middlewares:
+        - name: strip-api-prefix
