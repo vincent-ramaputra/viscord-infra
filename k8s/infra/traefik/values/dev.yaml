@@ -8,7 +8,7 @@ ingressRoute:
     entryPoints:
       - web
       - websecure
-    matchRule: Host(`traefik.viscord.test`) && (PathPrefix(`/dashboard`) || PathPrefix(`/api`))
+    matchRule: Host(`traefik.dev.viscord.app`) && (PathPrefix(`/dashboard`) || PathPrefix(`/api`))
 
 ports:
   web:
@@ -26,6 +26,19 @@ service:
   type: LoadBalancer
   spec:
     loadBalancerIP: 34.101.89.196
+
+certificatesResolvers:
+  letsencrypt:
+    acme:
+      email: "vincentramaputra123@gmail.com"
+      storage: "/data/acme.json"
+      httpChallenge:
+        entryPoint: "web"
+
+persistence:
+  enabled: true
+  size: 128Mi
+
 
 logs:
   general:

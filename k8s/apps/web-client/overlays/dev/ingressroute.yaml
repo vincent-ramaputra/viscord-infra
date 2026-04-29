@@ -7,10 +7,12 @@ spec:
     - web
     - websecure
   routes:
-    - match: Host(`viscord.test`) && !PathPrefix(`/api`)
+    - match: Host(`dev.viscord.app`) && !PathPrefix(`/api`)
       kind: Rule
       services:
         - name: web-service
           port: 3000
   middlewares:
     - name: redirect-https
+  tls:
+    certResolver: letsencrypt
