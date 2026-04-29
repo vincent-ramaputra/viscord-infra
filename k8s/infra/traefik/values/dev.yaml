@@ -39,6 +39,8 @@ persistence:
   enabled: true
   size: 128Mi
 
+podSecurityContext:
+  fsGroup: null
 
 securityContext:
   runAsUser: 65532
