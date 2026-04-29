@@ -3,6 +3,5 @@ kind: Kustomization
 resources:
   - ../../base
   - ./gcp-secretstore.yaml
-  - ./git-credential-secret.yaml
 patches:
   - path: ./serviceaccount-patch.yaml
