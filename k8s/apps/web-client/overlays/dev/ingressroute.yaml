@@ -12,7 +12,7 @@ spec:
       services:
         - name: web-service
           port: 3000
-  middlewares:
-    - name: redirect-https
+  # middlewares:
+    # - name: redirect-https
   tls:
     certResolver: letsencrypt
