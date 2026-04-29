@@ -8,6 +8,8 @@ ingressRoute:
     entryPoints:
       - websecure
     matchRule: Host(`traefik.dev.viscord.app`) && (PathPrefix(`/dashboard`) || PathPrefix(`/api`))
+    tls:
+      certResolver: letsencrypt
 
 ports:
   web:
