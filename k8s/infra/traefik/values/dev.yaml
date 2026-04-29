@@ -40,6 +40,10 @@ persistence:
   size: 128Mi
 
 
+securityContext:
+  runAsUser: 65532
+  runAsGroup: 65532
+
 logs:
   general:
     level: DEBUG
