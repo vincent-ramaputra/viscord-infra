@@ -6,9 +6,8 @@ ingressRoute:
   dashboard:
     enabled: true
     entryPoints:
-      - web
       - websecure
-    matchRule: Host(`traefik.viscord.test`) && (PathPrefix(`/dashboard`) || PathPrefix(`/api`))
+    matchRule: Host(`traefik.dev.viscord.app`) && (PathPrefix(`/dashboard`) || PathPrefix(`/api`))
 
 ports:
   web:
