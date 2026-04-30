@@ -18,5 +18,5 @@ data:
   GUILDS_SERVICE_PORT: "3000"
   STORAGE_ENDPOINT: "https://storage.googleapis.com"
   AWS_BUCKET: "viscord-dev"
-  AWS_REGION: "ASIA-SOUTHEAST1"
+  AWS_REGION: "auto"
   IMAGE_ASSET_PATH: "assets"
