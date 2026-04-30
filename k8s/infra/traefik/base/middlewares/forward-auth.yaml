@@ -7,3 +7,5 @@ metadata:
 spec:
   forwardAuth:
     address:  http://auth-service.default.svc.cluster.local:3000/auth/verify-token
+    authResponseHeaders:
+      - X-User-Id
