@@ -6,7 +6,7 @@ metadata:
     app: ws-gateway
 data:
   WS_PORT: "80"
-  RMQ_HOST: "message-broker"
+  RMQ_HOST: "message-broker-service"
   RMQ_PORT: "5672"
   SFU_SERVICE_HOST: "sfu"
   SFU_SERVICE_PORT: "3000"
