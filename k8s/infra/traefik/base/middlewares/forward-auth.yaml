@@ -6,4 +6,4 @@ metadata:
     app: traefik
 spec:
   forwardAuth:
-    address:  http://auth.default.svc.cluster.local:3000/auth/verify-token
+    address:  http://auth-service.default.svc.cluster.local:3000/auth/verify-token
