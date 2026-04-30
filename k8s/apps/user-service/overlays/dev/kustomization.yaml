@@ -12,5 +12,3 @@ patches:
 images:
 - name: vincentramaputra/viscord-user-service
   newTag: sha-6a2aea1
-- name: vincentramaputra/viscord-web-client
-  newTag: sha-5ee15fb

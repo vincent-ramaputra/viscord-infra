@@ -6,6 +6,3 @@ resources:
 - ./ingressroute.yaml
 patches:
 - path: ./deployment-patch.yaml
-images:
-- name: vincentramaputra/viscord-web-client
-  newTag: sha-4adc68a
