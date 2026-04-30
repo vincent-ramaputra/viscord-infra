@@ -9,7 +9,7 @@ spec:
     - websecure
   routes:
     - kind: Rule
-      match: Host(`viscord.test`) && PathPrefix(`/api/auth`)
+      match: Host(`dev.viscord.app`) && PathPrefix(`/api/auth`)
       services:
         - name: auth-service
           port: 3000

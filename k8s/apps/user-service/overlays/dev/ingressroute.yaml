@@ -9,7 +9,7 @@ spec:
     - websecure
   routes:
     - kind: Rule
-      match: Host(`viscord.test`) && (PathPrefix(`/api/users`) || PathPrefix(`/api/user-profiles`) || PathPrefix(`/api/relationships`)) && !PathPrefix(`/api/users/me/channels`)
+      match: Host(`dev.viscord.app`) && (PathPrefix(`/api/users`) || PathPrefix(`/api/user-profiles`) || PathPrefix(`/api/relationships`)) && !PathPrefix(`/api/users/me/channels`)
       services:
         - name: user-service
           port: 3000
