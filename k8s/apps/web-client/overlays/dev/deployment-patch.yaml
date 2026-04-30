@@ -4,8 +4,3 @@ metadata:
   name: web-deployment
 spec:
   replicas: 1
-  template:
-    spec:
-      containers:
-        - name: web
-          image: vincentramaputra/viscord-web:sha-70e060a
