@@ -9,6 +9,7 @@ spec:
   routes:
     - match: Host(`dev.viscord.app`) && !(PathPrefix(`/api`) || PathPrefix(`/.well-known`))
       kind: Rule
+      priority: 1
       services:
         - name: web-service
           port: 3000
