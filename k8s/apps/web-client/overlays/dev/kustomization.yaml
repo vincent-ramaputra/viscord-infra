@@ -8,4 +8,4 @@ patches:
 - path: ./deployment-patch.yaml
 images:
 - name: vincentramaputra/viscord-web
-  newTag: sha-226e04a
+  newTag: sha-f9186d0
