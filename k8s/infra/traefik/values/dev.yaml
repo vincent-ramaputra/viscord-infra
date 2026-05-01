@@ -53,12 +53,11 @@ podSecurityContext:
 logs:
   general:
     level: DEBUG
-  
-access:
-  enabled: true
-  fields:
-    defaultMode: keep
-    names:
-      RequestPath: keep
-      RequestMethod: keep
-      DownstreamStatus: keep
+  access:
+    enabled: true
+    fields:
+      defaultMode: keep
+      names:
+        RequestPath: keep
+        RequestMethod: keep
+        DownstreamStatus: keep
