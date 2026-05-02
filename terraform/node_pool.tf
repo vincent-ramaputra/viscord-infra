@@ -19,7 +19,7 @@ resource "google_container_node_pool" "dev_pool" {
 
     boot_disk {
       disk_type = "pd-standard"
-      size_gb   = 40
+      size_gb   = 80
     }
   }
 }
