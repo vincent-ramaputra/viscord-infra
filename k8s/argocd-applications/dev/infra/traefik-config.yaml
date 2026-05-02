@@ -21,4 +21,4 @@ spec:
       refresh: true
     syncOptions:
       - PruneLast=True
-      - CreateNamespace=True
+      - CreateNamespace=true
