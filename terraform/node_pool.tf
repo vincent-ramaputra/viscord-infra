@@ -11,7 +11,7 @@ resource "google_container_node_pool" "dev_pool" {
 
   node_config {
     spot         = true
-    machine_type = "e2-standard-2"
+    machine_type = "e2-medium"
     service_account = "gke-node@project-d29ff022-8c65-49c1-9db.iam.gserviceaccount.com"
     workload_metadata_config {
       mode = "GKE_METADATA"
@@ -19,7 +19,7 @@ resource "google_container_node_pool" "dev_pool" {
 
     boot_disk {
       disk_type = "pd-standard"
-      size_gb   = 80
+      size_gb   = 40
     }
   }
 }
