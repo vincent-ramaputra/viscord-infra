@@ -22,3 +22,6 @@ spec:
     retry:
       limit: -1
       refresh: true
+    syncOptions:
+      - CreateNamespace=True
+      - PruneLast=True
