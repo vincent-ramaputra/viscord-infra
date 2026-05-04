@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: message-service-dev
+  name: message-service
   namespace: argocd
 spec:
   project: default
