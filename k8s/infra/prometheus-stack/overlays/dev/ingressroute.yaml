@@ -16,4 +16,4 @@ spec:
   middlewares:
     - name: redirect-https
   tls:
-    - certResolver: letsencrypt
+    certResolver: letsencrypt
