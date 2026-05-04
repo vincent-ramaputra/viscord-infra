@@ -13,8 +13,8 @@ spec:
       services:
         - name: prometheus-grafana
           port: 80
-  middlewares:
-    - name: redirect-https
-      namespace: default
+      middlewares:
+        - name: redirect-https
+          namespace: default
   tls:
     certResolver: letsencrypt
