@@ -16,3 +16,5 @@ data:
   MESSAGE_SERVICE_PORT: "3000"
   RMQ_HOST: "message-broker-service"
   RMQ_PORT: "5672"
+  REDIS_HOST: "redis-service"
+  REDIS_PORT: "6379"
