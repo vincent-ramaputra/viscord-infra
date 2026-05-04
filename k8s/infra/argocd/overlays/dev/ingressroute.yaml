@@ -8,11 +8,15 @@ metadata:
 spec:
   entryPoints:
     - web
-    # - websecure
+    - websecure
   routes:
-    - match: PathPrefix(`/api/webhook`)
+    - match: Host(`argocd.dev.viscord.app`)
       kind: Rule
       services:
         - name: argocd-server
           port: 80
-          # scheme: https
+      middlewares:
+        - name: redirect-https
+          namespace: default
+  tls:
+    certResolver: letsencrypt
