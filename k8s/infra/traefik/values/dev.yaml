@@ -50,6 +50,10 @@ podSecurityContext:
   runAsNonRoot: false
 
 
+providers:
+  kubernetesCRD:
+    allowCrossNamespace: true
+
 logs:
   general:
     level: DEBUG
