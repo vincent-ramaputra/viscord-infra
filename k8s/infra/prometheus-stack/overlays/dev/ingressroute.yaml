@@ -1,0 +1,19 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: grafana-ingressroute
+  namespace: monitoring
+spec:
+  entryPoints:
+    - web
+    - websecure
+  routes:
+    - match: Host(`grafana.dev.viscord.app`)
+      kind: Rule
+      services:
+        - name: prometheus-grafana
+          port: 80
+  middlewares:
+    - name: redirect-https
+  tls:
+    - certResolver: letsencrypt

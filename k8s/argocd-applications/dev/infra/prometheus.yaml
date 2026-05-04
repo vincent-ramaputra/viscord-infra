@@ -13,7 +13,7 @@ spec:
       targetRevision: 84.4.0
       helm:
         valueFiles:
-          - $values/k8s/infra/prometheus/values/dev.yaml
+          - $values/k8s/infra/prometheus-stack/values/dev.yaml
     - repoURL: https://github.com/Laevateinn17/viscord-infra.git
       targetRevision: HEAD
       ref: values
