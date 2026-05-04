@@ -15,5 +15,6 @@ spec:
           port: 80
   middlewares:
     - name: redirect-https
+      namespace: default
   tls:
     certResolver: letsencrypt
