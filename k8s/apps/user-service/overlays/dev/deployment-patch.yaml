@@ -12,4 +12,16 @@ spec:
             - "-p=5432"
             - "--private-ip"
             - "project-d29ff022-8c65-49c1-9db:asia-southeast2:viscord-dev"
-    
+          resources:
+            requests:
+              memory: "32Mi"
+              cpu: "10m"
+            limits:
+              memory: "32Mi"
+        - name: user
+          resources:
+            requests:
+              memory: "192Mi"
+              cpu: "100m"
+            limits:
+              memory: "192Mi"

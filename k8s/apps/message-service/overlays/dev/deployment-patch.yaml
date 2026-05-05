@@ -7,10 +7,21 @@ spec:
   template:
     spec:
       containers:
-        - name: message
-          image: vincentramaputra/viscord-message-service:sha-67f3beb
         - name: cloud-sql-proxy
           args:
             - "-p=5432"
             - "--private-ip"
             - "project-d29ff022-8c65-49c1-9db:asia-southeast2:viscord-dev"
+          resources:
+            requests:
+              memory: "32Mi"
+              cpu: "10m"
+            limits:
+              memory: "32Mi"
+        - name: message
+          resources:
+            requests:
+              memory: "192Mi"
+              cpu: "200m"
+            limits:
+              memory: "192Mi"

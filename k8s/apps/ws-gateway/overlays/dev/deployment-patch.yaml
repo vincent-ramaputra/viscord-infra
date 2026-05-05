@@ -9,3 +9,9 @@ spec:
       containers:
         - name: ws-gateway
           image: vincentramaputra/viscord-ws-gateway:sha-5d924f4
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "192m"
+            limits:
+              memory: "256Mi"
