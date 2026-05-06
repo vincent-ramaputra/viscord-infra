@@ -21,7 +21,7 @@ spec:
         - name: message
           resources:
             requests:
-              memory: "192Mi"
+              memory: "256Mi"
               cpu: "150m"
             limits:
-              memory: "192Mi"
+              memory: "256Mi"
