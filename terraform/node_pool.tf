@@ -1,5 +1,5 @@
 variable "dev_node_count" {
-    default = 1
+    default = 2
 }
 
 resource "google_container_node_pool" "dev_pool" {
