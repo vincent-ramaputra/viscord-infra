@@ -1,22 +1,25 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: root-app-dev
+  name: loki
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
   project: default
-  sources:
+  sources: 
+    - repoURL: 
+      chart: kube-prometheus-stack
+      targetRevision: 84.4.0
+      helm:
+        valueFiles:
+          - $values/k8s/infra/prometheus-stack/values/dev.yaml
     - repoURL: https://github.com/Laevateinn17/viscord-infra.git
       targetRevision: HEAD
-      path: k8s/argocd-applications/dev/platform
-    - repoURL: https://github.com/Laevateinn17/viscord-infra.git
-      targetRevision: HEAD
-      path: k8s/argocd-applications/dev/services
+      ref: values
   destination:
     server: https://kubernetes.default.svc
-    namespace: argocd
+    namespace: monitoring
   syncPolicy:
     automated:
       prune: true
@@ -25,5 +28,6 @@ spec:
       limit: -1
       refresh: true
     syncOptions:
-      - CreateNamespace=True
-      - PruneLast=True
+      - PruneLast=true
+      - CreateNamespace=true
+      - ServerSideApply=true
