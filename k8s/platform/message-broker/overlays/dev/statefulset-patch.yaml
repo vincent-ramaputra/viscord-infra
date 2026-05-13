@@ -9,7 +9,7 @@ spec:
       containers:
         - name: rabbitmq
           resources:
-            request:
+            requests:
               memory: "128Mi"
               cpu: "50m"
             limits:
