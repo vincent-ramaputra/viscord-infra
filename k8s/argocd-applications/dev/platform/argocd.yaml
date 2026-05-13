@@ -1,17 +1,17 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: message-broker
+  name: argocd
   namespace: argocd
 spec:
   project: default
   source:
     repoURL: https://github.com/Laevateinn17/viscord-infra.git
     targetRevision: HEAD
-    path: k8s/apps/message-broker/overlays/dev
+    path: k8s/platform/argocd/overlays/dev
   destination:
     server: https://kubernetes.default.svc
-    namespace: default
+    namespace: argocd
   syncPolicy:
     automated:
       prune: true
@@ -19,3 +19,5 @@ spec:
     retry:
       limit: -1
       refresh: true
+    syncOptions:
+      - ServerSideApply=true

@@ -1,17 +1,17 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: argocd
+  name: auth-service
   namespace: argocd
 spec:
   project: default
   source:
     repoURL: https://github.com/Laevateinn17/viscord-infra.git
     targetRevision: HEAD
-    path: k8s/infra/argocd/overlays/dev
+    path: k8s/services/auth-service/overlays/dev
   destination:
     server: https://kubernetes.default.svc
-    namespace: kube-system
+    namespace: default
   syncPolicy:
     automated:
       prune: true
@@ -19,5 +19,3 @@ spec:
     retry:
       limit: -1
       refresh: true
-    syncOptions:
-      - ServerSideApply=true

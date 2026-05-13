@@ -7,9 +7,8 @@ spec:
   project: default
   sources:
     - repoURL: https://github.com/Laevateinn17/viscord-infra.git
-      path: k8s/infra/prometheus-stack/overlays/dev
+      path: k8s/platform/prometheus-stack/overlays/dev
       targetRevision: HEAD
-      ref: values
   destination:
     server: https://kubernetes.default.svc
     namespace: monitoring

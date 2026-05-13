@@ -1,25 +1,25 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: loki
+  name: traefik
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
   project: default
-  sources: 
-    - repoURL: 
-      chart: kube-prometheus-stack
-      targetRevision: 84.4.0
+  sources:
+    - chart: traefik
+      repoURL: https://traefik.github.io/charts
+      targetRevision: 39.0.7
       helm:
-        valueFiles:
-          - $values/k8s/infra/prometheus-stack/values/dev.yaml
+        valueFiles: 
+          - $values/k8s/platform/traefik/values/dev.yaml
     - repoURL: https://github.com/Laevateinn17/viscord-infra.git
       targetRevision: HEAD
       ref: values
   destination:
     server: https://kubernetes.default.svc
-    namespace: monitoring
+    namespace: traefik
   syncPolicy:
     automated:
       prune: true
@@ -30,4 +30,3 @@ spec:
     syncOptions:
       - PruneLast=true
       - CreateNamespace=true
-      - ServerSideApply=true
