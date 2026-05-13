@@ -6,3 +6,5 @@ terraform/.terraform/
 
 *.secret.yaml
 .secret/
+
+**/CLAUDE.md
