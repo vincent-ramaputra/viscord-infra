@@ -18,5 +18,5 @@ resource "google_storage_bucket_iam_member" "loki_ruler_dev" {
 resource "google_service_account_iam_member" "loki_dev_workload_identity" {
     service_account_id = google_service_account.loki_dev.name
     role               = "roles/iam.workloadIdentityUser"
-    member             = "serviceAccount:project-d29ff022-8c65-49c1-9db.svc.id.goog[monitoring/loki-ksa]"
+    member             = "serviceAccount:project-d29ff022-8c65-49c1-9db.svc.id.goog[loki/loki-ksa]"
   }
