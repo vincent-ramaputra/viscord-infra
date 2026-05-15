@@ -1,22 +1,14 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: loki
+  name: loki-resources
   namespace: argocd
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io
 spec:
   project: default
-  sources: 
-    - repoURL: https://grafana.github.io/helm-charts
-      chart: loki
-      targetRevision: 84.4.0
-      helm:
-        valueFiles:
-          - $values/k8s/platform/loki/values/dev.yaml
+  sources:
     - repoURL: https://github.com/Laevateinn17/viscord-infra.git
+      path: k8s/platform/loki/overlays/dev
       targetRevision: HEAD
-      ref: values
   destination:
     server: https://kubernetes.default.svc
     namespace: loki
@@ -30,4 +22,3 @@ spec:
     syncOptions:
       - PruneLast=true
       - CreateNamespace=true
-      - ServerSideApply=true

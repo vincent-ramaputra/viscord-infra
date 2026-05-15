@@ -6,3 +6,24 @@ loki:
         object_store: gcs
         schema: v13
         index:
+          prefix: index_
+          period: 24h
+  limits_config:
+    volume_enabled: true
+    retention_period: 720h
+  compactor:
+    retention_enabled: true
+    delete_request_store: gcs
+  ruler:
+    enable_api: true
+      # alertmanager_url: http://prom:9093 # The URL of the Alertmanager to send alerts (Prometheus, Mimir, etc.)
+  storage:
+    type: gcs
+    bucketNames:
+      chunks: viscord-loki-chunks-dev
+      ruler: viscord-loki-ruler-dev
+  
+serviceAccount:
+    create: false
+    name: loki-ksa
+
