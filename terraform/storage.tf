@@ -14,7 +14,7 @@ resource "google_storage_bucket" "viscord_dev" {
 }
 
 resource "google_storage_bucket" "loki_chunks_dev" {
-  name                        = "loki-chunks-dev"
+  name                        = "viscord-loki-chunks-dev"
   location                    = "asia-southeast1"
   storage_class               = "standard"
   force_destroy               = true
@@ -38,7 +38,7 @@ resource "google_storage_bucket" "loki_chunks_dev" {
 }
 
 resource "google_storage_bucket" "loki_ruler_dev" {
-  name                        = "loki-ruler-dev"
+  name                        = "viscord-loki-ruler-dev"
   location                    = "asia-southeast1"
   storage_class               = "standard"
   force_destroy               = true

@@ -1,0 +1,8 @@
+loki:
+  schemaConfigs:
+    configs:
+      - from: "2020-01-01"
+        store: tsdb
+        object_store: gcs
+        schema: v13
+        index:

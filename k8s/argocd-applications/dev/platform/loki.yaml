@@ -8,8 +8,8 @@ metadata:
 spec:
   project: default
   sources: 
-    - repoURL: 
-      chart: kube-prometheus-stack
+    - repoURL: https://grafana.github.io/helm-charts
+      chart: loki
       targetRevision: 84.4.0
       helm:
         valueFiles:
