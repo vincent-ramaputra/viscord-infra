@@ -16,7 +16,7 @@ resource "google_storage_bucket" "viscord_dev" {
 resource "google_storage_bucket" "loki_chunks_dev" {
   name                        = "viscord-loki-chunks-dev"
   location                    = "asia-southeast1"
-  storage_class               = "standard"
+  storage_class               = "STANDARD"
   force_destroy               = true
   uniform_bucket_level_access = true
 
@@ -24,7 +24,7 @@ resource "google_storage_bucket" "loki_chunks_dev" {
     condition { age = 14 }
     action {
       type          = "SetStorageClass"
-      storage_class = "nearline"
+      storage_class = "NEARLINE"
     }
   }
 
@@ -40,7 +40,7 @@ resource "google_storage_bucket" "loki_chunks_dev" {
 resource "google_storage_bucket" "loki_ruler_dev" {
   name                        = "viscord-loki-ruler-dev"
   location                    = "asia-southeast1"
-  storage_class               = "standard"
+  storage_class               = "STANDARD"
   force_destroy               = true
   uniform_bucket_level_access = true
 }
