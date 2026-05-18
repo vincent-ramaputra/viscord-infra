@@ -3,9 +3,6 @@ kind: Deployment
 metadata:
   name: guild-deployment
 spec:
-  selector:
-    matchLabels:
-      app: guild
   template:
     metadata:
     spec:
