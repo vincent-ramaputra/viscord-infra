@@ -8,3 +8,4 @@ labels:
     includeTemplates: true
     pairs:
       app: ws-gateway
+      app.kubernetes.io/part-of: viscord

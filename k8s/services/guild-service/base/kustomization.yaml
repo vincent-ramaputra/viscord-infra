@@ -5,6 +5,7 @@ labels:
     includeTemplates: true
     pairs:
       app: guild
+      app.kubernetes.io/part-of: viscord
 resources:
   - ./deployment.yaml
   - ./service.yaml

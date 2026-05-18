@@ -8,3 +8,4 @@ labels:
     includeTemplates: true
     pairs:
       app: web
+      app.kubernetes.io/part-of: viscord
