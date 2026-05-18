@@ -22,6 +22,7 @@ loki:
     bucketNames:
       chunks: viscord-loki-chunks-dev
       ruler: viscord-loki-ruler-dev
+  auth_enabled: false
 
 backend:
   replicas: 1
