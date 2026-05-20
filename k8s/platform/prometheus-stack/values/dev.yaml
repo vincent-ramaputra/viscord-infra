@@ -4,4 +4,8 @@ grafana:
       type: loki
       access: proxy
       url: http://loki-gateway.loki.svc.cluster.local
-      
+  admin:
+    existingSecret: grafana-admin-secret
+    userKey: user
+    passwordKey: password
+    
