@@ -2,7 +2,7 @@ resource "google_sql_database_instance" "viscord_dev" {
     name = "viscord-dev"
     database_version = "POSTGRES_18"
     settings {
-        tier = "db-perf-optimized-N-8"
+        tier = "db-g1-small"
         disk_autoresize = false
         enable_dataplex_integration = true
 
