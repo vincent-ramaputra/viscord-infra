@@ -12,6 +12,10 @@ resource "google_sql_database_instance" "viscord_dev" {
           value = "on"
         }
 
+        backup_configuration {
+          transaction_log_retention_days = 3
+        }
+
         final_backup_config {
           enabled = false
         }
