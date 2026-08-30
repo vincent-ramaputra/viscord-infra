@@ -1,0 +1,35 @@
+module "app_cluster" {
+    source = "terraform-aws-modules/eks/aws"
+
+    name = "app-dev"
+    kubernetes_version = "1.36"
+
+    iam_role_arn = aws_iam_role.cluster_role.arn
+
+    vpc_id = module.dev_vpc.vpc_id
+    subnet_ids = module.dev_vpc.private_subnet_ids
+    additional_security_group_ids  = [
+        aws_security_group.app_dev_allow_vpn.id
+    ]
+
+    tags = {
+        Terraform = "true",
+        Environment = "dev"
+    }
+}
+
+
+resource "aws_eks_access_entry" "app_cluster_administrator" {
+    cluster_name = module.app_cluster.cluster_name
+    principal_arn = aws_iam_role.app_cluster_administrator.arn
+}
+
+resource "aws_eks_access_policy_association" "app_cluster_administrator" {
+    cluster_name = module.app_cluster.cluster_name
+    principal_arn = aws_iam_role.app_cluster_administrator.arn
+    policy_arn = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
+
+    access_scope {
+      type = "cluster"
+    }
+}
