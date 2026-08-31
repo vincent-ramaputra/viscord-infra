@@ -4,8 +4,9 @@ resource "aws_security_group" "app_dev_allow_vpn" {
     vpc_id = module.dev_vpc.vpc_id
     
     tags = {
-      Terraform = "true"
-      Environment = "dev"
+        Name = "app-dev-allow-vpn"
+        Terraform = "true"
+        Environment = "dev"
     }
 }
 

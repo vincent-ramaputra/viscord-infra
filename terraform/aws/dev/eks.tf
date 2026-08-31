@@ -11,6 +11,8 @@ module "app_cluster" {
     additional_security_group_ids  = [
         aws_security_group.app_dev_allow_vpn.id
     ]
+    endpoint_public_access = true
+    security_group_name = "app-dev-sg"
 
     addons = {
         vpc-cni = {
