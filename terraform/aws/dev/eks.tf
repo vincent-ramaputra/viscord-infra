@@ -12,6 +12,25 @@ module "app_cluster" {
         aws_security_group.app_dev_allow_vpn.id
     ]
 
+    addons = {
+        vpc-cni = {
+            most_recent = true
+            before_compute = true
+        }
+    }
+
+    eks_managed_node_groups = {
+        spot = {
+            name = "dev-app-nodes"
+            instance_types = ["t3.medium"]
+            capacity_type = "SPOT"
+            min_size = 1
+            max_size = 3
+            desired_size = 1
+        }
+    }
+
+
     tags = {
         Terraform = "true",
         Environment = "dev"

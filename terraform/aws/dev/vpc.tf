@@ -1,12 +1,13 @@
 module "dev_vpc" {
     source  = "app.terraform.io/vincent_solo_team/aws-vpc/aws"
-    version = "0.9.0"
+    version = "0.10.1"
 
     region = "ap-southeast-3"
     availability_zones = ["ap-southeast-3a", "ap-southeast-3b", "ap-southeast-3c"]
 
     name = "dev-vpc"
     cidr_block = "10.0.0.0/16"
+    create_nat_gateway = true
     private_subnets = [
         {
             name = "dev-app-private-1"
