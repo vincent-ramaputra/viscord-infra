@@ -1,0 +1,33 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: external-dns
+  namespace: external-dns
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  sources: 
+    - repoURL: https://kubernetes-sigs.github.io/external-dns/
+      chart: 
+      targetRevision: 1.21.1
+      helm:
+        valueFiles:
+          - $values/k8s/platform/external-dns/values/dev.yaml
+    - repoURL: https://github.com/Laevateinn17/viscord-infra.git
+      targetRevision: HEAD
+      ref: values
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: external-dns
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    retry:
+      limit: -1
+      refresh: true
+    syncOptions:
+      - PruneLast=true
+      - CreateNamespace=true
+      - ServerSideApply=true
