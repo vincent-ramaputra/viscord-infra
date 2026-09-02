@@ -35,7 +35,7 @@ module "app_cluster" {
     eks_managed_node_groups = {
         spot = {
             name = "dev-app-nodes"
-            instance_types = ["t3.medium"]
+            instance_types = ["t3.large"]
             capacity_type = "SPOT"
             min_size = 1
             max_size = 3
