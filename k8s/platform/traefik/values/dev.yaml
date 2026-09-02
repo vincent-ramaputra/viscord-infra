@@ -28,14 +28,21 @@ service:
   annotations:
     service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
     external-dns.alpha.kubernetes.io/hostname: "dev.viscord.app,*.dev.viscord.app"
+    
 certificatesResolvers:
   letsencrypt:
     acme: 
       caServer: https://acme-staging-v02.api.letsencrypt.org/directory
       email: "vincentramaputra123@gmail.com"
       storage: "/data/acme.json"
-      httpChallenge:
-        entryPoint: "web"
+      dnsChallenge:
+        provider: route53
+        resolvers:
+          - "1.1.1.1:53"
+          - "8.8.8.8:53"
+
+      # httpChallenge:
+      #   entryPoint: "web"
 
 persistence:
   enabled: true
