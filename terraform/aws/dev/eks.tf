@@ -19,6 +19,12 @@ module "app_cluster" {
         vpc-cni = {
             most_recent = true
             before_compute = true
+            configuration_values = jsonencode({
+                env = {
+                    ENABLE_PREFIX_DELEGATION = "true"
+                    WARM_PREFIX_TARGET       = "1"
+                }
+            })
         }
         coredns = {
             most_recent = true
@@ -43,6 +49,18 @@ module "app_cluster" {
             min_size = 1
             max_size = 3
             desired_size = 1
+
+            cloudinit_pre_nodeadm = [{
+                content_type = "application/node.eks.aws"
+                content      = <<-EOT
+                  apiVersion: node.eks.aws/v1alpha1
+                  kind: NodeConfig
+                  spec:
+                    kubelet:
+                      config:
+                        maxPods: 110
+                EOT
+            }]
         }
     }
 
