@@ -38,5 +38,5 @@ resource "aws_eks_pod_identity_association" "externaldns" {
     cluster_name = module.app_cluster.cluster_name
     service_account = "external-dns"
     namespace = "external-dns"
-    role_arn = aws_iam_role.externaldns
+    role_arn = aws_iam_role.externaldns.arn
 }
