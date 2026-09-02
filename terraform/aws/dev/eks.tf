@@ -5,6 +5,7 @@ module "app_cluster" {
     kubernetes_version = "1.36"
 
     iam_role_arn = aws_iam_role.cluster_role.arn
+    enable_cluster_creator_admin_permissions = true
 
     vpc_id = module.dev_vpc.vpc_id
     subnet_ids = module.dev_vpc.private_subnet_ids
@@ -16,6 +17,16 @@ module "app_cluster" {
 
     addons = {
         vpc-cni = {
+            most_recent = true
+            before_compute = true
+        }
+        coredns = {
+            most_recent = true
+        }
+        kube-proxy = {
+            most_recent = true
+        }
+        eks-pod-identity-agent = {
             most_recent = true
             before_compute = true
         }
