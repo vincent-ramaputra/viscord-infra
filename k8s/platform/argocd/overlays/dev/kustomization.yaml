@@ -6,6 +6,5 @@ resources:
   # - ./argocd-secret.yaml
   - ./ingressroute.yaml
   - ./git-credential-secret.yaml
-  - https://raw.githubusercontent.com/argoproj/argo-cd/refs/tags/v3.3.7/manifests/install.yaml
 patches:
   - path: ./argocd-cmd-params-cm.yaml
