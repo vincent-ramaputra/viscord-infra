@@ -22,7 +22,7 @@ resource "aws_iam_role_policy" "traefik" {
             Action = [
                 "route53:ChangeResourceRecordSets",
                 "route53:ListResourceRecordSets",
-                "ListHostedZonesByName"
+                "route53:ListHostedZonesByName"
             ]
             Resource = "*"
         }]
