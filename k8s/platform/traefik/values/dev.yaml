@@ -27,10 +27,10 @@ service:
   type: LoadBalancer
   annotations:
     service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
-    external-dns.alpha.kubernetes.io/hostname: "dev.viscord.app"
+    external-dns.alpha.kubernetes.io/hostname: "dev.viscord.app,*.dev.viscord.app"
 certificatesResolvers:
   letsencrypt:
-    acme:
+    acme: 
       caServer: https://acme-staging-v02.api.letsencrypt.org/directory
       email: "vincentramaputra123@gmail.com"
       storage: "/data/acme.json"
