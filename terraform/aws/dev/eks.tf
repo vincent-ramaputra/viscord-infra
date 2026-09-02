@@ -30,6 +30,9 @@ module "app_cluster" {
             most_recent = true
             before_compute = true
         }
+        aws-ebs-csi-driver = {
+            most_recent = true
+        }
     }
 
     eks_managed_node_groups = {
