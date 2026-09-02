@@ -27,7 +27,8 @@ resource "aws_iam_role_policy" "externaldns" {
             Action = [
                 "route53:ChangeResourceRecordSets",
                 "route53:ListResourceRecordSets",
-                "route53:ListTagsForResources"
+                "route53:ListTagsForResources",
+                "route53:ListHostedZone"
             ],
             Resource = "*"
         }]       
