@@ -22,6 +22,10 @@ module "dev_vpc" {
         {
             name = "dev-app-public-1"
             cidr = "10.0.0.0/24"
+        },
+        {
+            name = "dev-app-public-2"
+            cidr = "10.0.1.0/24"
         }
     ]
 

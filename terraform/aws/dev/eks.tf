@@ -50,6 +50,7 @@ module "app_cluster" {
             max_size = 3
             desired_size = 1
 
+
             cloudinit_pre_nodeadm = [{
                 content_type = "application/node.eks.aws"
                 content      = <<-EOT
