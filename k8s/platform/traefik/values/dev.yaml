@@ -22,8 +22,9 @@ ports:
     #       permanent: true
   websecure:
     port: 443
-    tls:
-      enabled: false
+    http:
+      tls:
+        enabled: false
 
 service:
   type: LoadBalancer
