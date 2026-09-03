@@ -4,7 +4,6 @@ metadata:
   name: web-ingressroute
 spec:
   entryPoints:
-    - web
     - websecure
   routes:
     - match: Host(`dev.viscord.app`) && !(PathPrefix(`/api`) || PathPrefix(`/.well-known`))
@@ -13,7 +12,3 @@ spec:
       services:
         - name: web-service
           port: 3000
-      middlewares:
-        - name: redirect-https
-  tls:
-    certResolver: letsencrypt
