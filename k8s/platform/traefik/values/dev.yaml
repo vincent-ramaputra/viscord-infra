@@ -8,6 +8,8 @@ ingressRoute:
     entryPoints:
       - websecure
     matchRule: Host(`traefik.dev.viscord.app`) && (PathPrefix(`/dashboard`) || PathPrefix(`/api`))
+    # tls:
+    #   certResolver: letsencrypt
 
 ports:
   web:
@@ -28,7 +30,7 @@ service:
   type: LoadBalancer
   annotations:
     service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
-    service.beta.kubernetes.io/aws-load-balancer-ssl-cert: "arn:aws:acm:ap-southeast-3:409684965426:certificate/12fe4d5b-a4c6-4446-8eb4-5b7458a58c33"
+    service.beta.kubernetes.io/aws-load-balancer-ssl-cert: "arn:aws:acm:ap-southeast-3:409684965426:certificate/9c4ade25-5d17-4f6d-86ac-ddd2195ced01"
     service.beta.kubernetes.io/aws-load-balancer-ssl-ports: "443"
     external-dns.alpha.kubernetes.io/hostname: "dev.viscord.app,*.dev.viscord.app"
 
