@@ -24,6 +24,10 @@ resource "helm_release" "external_secrets" {
     name = "external-secrets"
     namespace = "external-secrets"
     create_namespace = true
+
+    depends_on = [
+        module.app_cluster_node_group_spot
+    ]
 }
 
 resource "helm_release" "argocd" {
@@ -32,6 +36,10 @@ resource "helm_release" "argocd" {
     name = "argocd"
     namespace = "argocd"
     create_namespace = true
+
+    depends_on = [
+        module.app_cluster_node_group_spot
+    ]
 }
 
 resource "helm_release" "app-bootstrap" {
@@ -50,6 +58,7 @@ resource "helm_release" "app-bootstrap" {
     })]
 
     depends_on = [
+        module.app_cluster_node_group_spot,
         helm_release.argocd,
         helm_release.external_secrets
     ]

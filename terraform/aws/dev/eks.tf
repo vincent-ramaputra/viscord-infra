@@ -41,30 +41,65 @@ module "app_cluster" {
         }
     }
 
-    eks_managed_node_groups = {
-        spot = {
-            name = "dev-app-nodes"
-            instance_types = ["t3.large"]
-            capacity_type = "SPOT"
-            min_size = 1
-            max_size = 3
-            desired_size = 1
+    # eks_managed_node_groups = {
+    #     spot = {
+    #         name = "dev-app-nodes"
+    #         instance_types = ["t3.large"]
+    #         capacity_type = "SPOT"
+    #         min_size = 1
+    #         max_size = 3
+    #         desired_size = 1
 
 
-            cloudinit_pre_nodeadm = [{
-                content_type = "application/node.eks.aws"
-                content      = <<-EOT
-                  apiVersion: node.eks.aws/v1alpha1
-                  kind: NodeConfig
-                  spec:
-                    kubelet:
-                      config:
-                        maxPods: 110
-                EOT
-            }]
-        }
+    #         cloudinit_pre_nodeadm = [{
+    #             content_type = "application/node.eks.aws"
+    #             content      = <<-EOT
+    #               apiVersion: node.eks.aws/v1alpha1
+    #               kind: NodeConfig
+    #               spec:
+    #                 kubelet:
+    #                   config:
+    #                     maxPods: 110
+    #             EOT
+    #         }]
+    #     }
+    # }
+
+
+    tags = {
+        Terraform = "true",
+        Environment = "dev"
     }
+}
 
+module "app_cluster_node_group_spot" {
+    source = "terraform-aws-modules/eks/aws//modules/eks-managed-node-group"
+    
+    name = "dev-app-nodes"
+    cluster_name = module.app_cluster.cluster_name
+
+    subnet_ids = module.dev_vpc.private_subnet_ids
+    cluster_service_cidr = module.app_cluster.cluster_service_cidr
+    vpc_security_group_ids = [module.app_cluster.node_security_group_id]
+
+    instance_types = ["t3.large"]
+    capacity_type = "SPOT"
+    min_size = 1
+    max_size = 3
+    desired_size = 1
+
+
+    cloudinit_pre_nodeadm = [{
+        content_type = "application/node.eks.aws"
+        content      = <<-EOT
+            apiVersion: node.eks.aws/v1alpha1
+            kind: NodeConfig
+            spec:
+            kubelet:
+                config:
+                maxPods: 110
+        EOT
+    }]
 
     tags = {
         Terraform = "true",

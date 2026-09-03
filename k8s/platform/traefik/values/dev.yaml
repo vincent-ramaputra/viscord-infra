@@ -49,9 +49,9 @@ certificatesResolvers:
       # httpChallenge:
       #   entryPoint: "web"
 
-persistence:
-  enabled: true
-  size: 128Mi
+# persistence:
+#   enabled: true
+#   size: 128Mi
 
 securityContext:
   readOnlyRootFilesystem: false
