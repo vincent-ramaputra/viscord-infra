@@ -9,7 +9,7 @@ resources:
 configMapGenerator:
   - name: logs-overview-dashboard
     files:
-      - ../../grafana/dashboards/logs-overview.json
+      - ./grafana/dashboards/logs-overview.json
 generatorOptions:
   labels:
     grafana_dashboard: "1"
