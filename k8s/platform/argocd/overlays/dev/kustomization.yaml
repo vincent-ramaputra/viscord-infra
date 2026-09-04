@@ -5,6 +5,5 @@ resources:
   - ../../base
   # - ./argocd-secret.yaml
   - ./ingressroute.yaml
-  - ./git-credential-secret.yaml
 patches:
   - path: ./argocd-cmd-params-cm.yaml
