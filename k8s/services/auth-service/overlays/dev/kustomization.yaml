@@ -5,6 +5,7 @@ resources:
 - ../../base
 - ./ingressroute.yaml
 - ./configmap.yaml
+- ./secret.yaml
 patches:
 - path: ./deployment-patch.yaml
 - path: ./serviceaccount-patch.yaml
