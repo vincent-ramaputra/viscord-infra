@@ -18,5 +18,3 @@ spec:
           ports:
           - name: http
             containerPort: 3000
-        - name: cloud-sql-proxy
-          image: gcr.io/cloud-sql-connectors/cloud-sql-proxy:2.11.0
