@@ -5,12 +5,12 @@ metadata:
   labels:
     app: guild
 data:
+  NODE_ENV: "development"
   APP_PORT: "3000"
   GRPC_PORT: "5000"
   # DB_HOST: "localhost"
   # DB_PORT: "5432"
   DB_NAME: "viscord_guild"
-  DB_SSL_REJECT_UNAUTHORIZED: "false"
   USER_SERVICE_HOST: "user-service"
   USER_SERVICE_PORT: "3000"
   MESSAGE_SERVICE_HOST: "message-service"
