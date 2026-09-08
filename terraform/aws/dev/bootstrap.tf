@@ -17,6 +17,11 @@ provider "helm" {
     } ]
 }
 
+provider "kubernetes" {
+    host = module.app_cluster.cluster_endpoint
+    cluster_ca_certificate = base64decode(module.app_cluster.cluster_certificate_authority_data) 
+    token = data.aws_eks_cluster_auth.app.token
+}
 
 resource "helm_release" "external_secrets" {
     repository = "https://charts.external-secrets.io"
@@ -62,4 +67,15 @@ resource "helm_release" "app-bootstrap" {
         helm_release.argocd,
         helm_release.external_secrets
     ]
+}
+
+resource "kubernetes_config_map_v1" "db_config" {
+    metadata {
+        name = "db-config"
+    }
+
+    data = {
+        DB_HOST = aws_db_instance.app_db.address
+        DB_PORT = aws_db_instance.app_db.port
+    }
 }
