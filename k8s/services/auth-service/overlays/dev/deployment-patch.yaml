@@ -12,7 +12,7 @@ spec:
           - configMapRef:
               name: db-config
           - secretRef:
-              name: db-secret
+              name: auth-secret
           resources:
             requests:
               memory: "128Mi"
