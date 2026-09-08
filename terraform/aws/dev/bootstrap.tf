@@ -75,7 +75,7 @@ resource "kubernetes_config_map_v1" "db_config" {
     }
 
     data = {
-        DB_HOST = aws_db_instance.app_db.address
-        DB_PORT = aws_db_instance.app_db.port
+        DB_HOST = data.aws_db_instance.app_db.address
+        DB_PORT = data.aws_db_instance.app_db.port
     }
 }

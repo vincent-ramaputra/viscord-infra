@@ -10,6 +10,7 @@ data:
   # DB_HOST: "localhost"
   # DB_PORT: "5432"
   DB_NAME: "viscord_auth"
+  DB_SSL_REJECT_UNAUTHORIZED: "true"
   USER_SERVICE_HOST: "user-service"
   USER_SERVICE_PORT: "3000"
   RMQ_HOST: "message-broker-service"
