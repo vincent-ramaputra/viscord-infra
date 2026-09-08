@@ -7,18 +7,14 @@ spec:
   template:
     spec:
       containers:
-        - name: cloud-sql-proxy
-          args:
-            - "-p=5432"
-            - "--private-ip"
-            - "project-d29ff022-8c65-49c1-9db:asia-southeast2:viscord-dev"
-          resources:
-            requests:
-              memory: "32Mi"
-              cpu: "10m"
-            limits:
-              memory: "32Mi"
         - name: guild
+          envFrom:
+          - configMapRef:
+              name: db-config
+          - configMapRef:
+              name: guild-configmap
+          - secretRef:
+              name: guild-secret
           resources:
             requests:
               memory: "128Mi"

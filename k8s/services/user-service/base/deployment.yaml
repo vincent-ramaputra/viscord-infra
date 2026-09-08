@@ -12,12 +12,12 @@ spec:
           envFrom:
           - configMapRef:
               name: user-configmap
+          - configMapRef:
+              name: db-config
           - secretRef:
-              name: user-secret
+              name: user-db-secret
           ports:
           - name: http
             containerPort: 3000
           - name: grpc
             containerPort: 5000
-        - name: cloud-sql-proxy
-          image: gcr.io/cloud-sql-connectors/cloud-sql-proxy:2.11.0
