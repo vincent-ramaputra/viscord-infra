@@ -11,6 +11,8 @@ spec:
           envFrom:
           - configMapRef:
               name: db-config
+          - configMapRef:
+              name: auth-configmap
           - secretRef:
               name: auth-secret
           resources:
