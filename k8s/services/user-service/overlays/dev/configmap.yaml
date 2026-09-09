@@ -18,6 +18,6 @@ data:
   AUTH_SERVICE_PORT: "3000"
   GUILDS_SERVICE_HOST: "guild-service"
   GUILDS_SERVICE_PORT: "3000"
-  CDN_ENDPOINT: "https://cdn.dev.visord.app"
+  CDN_ENDPOINT: "https://cdn.dev.viscord.app"
   BUCKET_NAME: "viscord-dev-409684965426-ap-southeast-3-an"
   S3_REGION: "ap-southeast-3"
