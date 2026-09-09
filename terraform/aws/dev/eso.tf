@@ -27,7 +27,8 @@ resource "aws_iam_role_policy" "eso" {
             Resource = [
                 "arn:aws:secretsmanager:ap-southeast-3:409684965426:secret:viscord-dev-github-app-key-GLq1Vu",
                 "arn:aws:secretsmanager:ap-southeast-3:409684965426:secret:grafana-admin-secret-dev-myJmgh",
-                "arn:aws:secretsmanager:ap-southeast-3:409684965426:secret:app-db-secret-dev-o3nGkV"
+                "arn:aws:secretsmanager:ap-southeast-3:409684965426:secret:app-db-secret-dev-o3nGkV",
+                "arn:aws:secretsmanager:ap-southeast-3:409684965426:secret:APP_DEV-OVSFwB"
             ]
         }]
     })
