@@ -6,7 +6,6 @@ metadata:
 spec:
   entryPoints:
     - web
-    - websecure
   routes:
     - match: Host(`grafana.dev.viscord.app`)
       kind: Rule
@@ -16,5 +15,3 @@ spec:
       middlewares:
         - name: redirect-https
           namespace: default
-  tls:
-    certResolver: letsencrypt
