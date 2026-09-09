@@ -47,7 +47,7 @@ resource "helm_release" "argocd" {
     ]
 }
 
-resource "helm_release" "app-bootstrap" {
+resource "helm_release" "app_bootstrap" {
     chart = "oci://409684965426.dkr.ecr.ap-southeast-3.amazonaws.com/charts/app-bootstrap"
     name = "app-bootstrap"
     version = "0.2.4"
