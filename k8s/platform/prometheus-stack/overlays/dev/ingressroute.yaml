@@ -12,6 +12,3 @@ spec:
       services:
         - name: prometheus-grafana
           port: 80
-      middlewares:
-        - name: redirect-https
-          namespace: default
