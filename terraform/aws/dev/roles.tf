@@ -22,19 +22,40 @@ resource "aws_iam_role_policy" "user_service" {
     role = aws_iam_role.user_service.id
     policy = jsonencode({
         Version = "2012-10-17"
-        Statement = [{
-            Effect = "Allow"
-            Action = [
-                "s3:ListBucket",
-                "s3:PutObject",
-                "s3:GetObject",
-                "s3:DeleteObject"
-            ]
-            
-            Resource = [
-                data.aws_s3_bucket.app_dev.arn
-            ]
-        }]
+        Statement = [
+            {
+                Effect = "Allow"
+                Action = [
+                    "s3:ListBucket",
+                ]
+                
+                Resource = [
+                    data.aws_s3_bucket.app_dev.arn
+                ]
+            },
+            {
+                Effect = "Allow"
+                Action = [
+                    "s3:GetObject",
+                ]
+                
+                Resource = [
+                    "${data.aws_s3_bucket.app_dev.arn}/assets/avatars/*"
+                ]
+            },
+            {
+                Effect = "Allow"
+                Action = [
+                    "s3:GetObject",
+                    "s3:PutObject",
+                    "s3:DeleteObject",
+                ]
+                
+                Resource = [
+                    "${data.aws_s3_bucket.app_dev.arn}/avatars/*"
+                ]
+            }
+        ]
     })
 }
 
@@ -69,19 +90,30 @@ resource "aws_iam_role_policy" "guild_service" {
     role = aws_iam_role.guild_service.id
     policy = jsonencode({
         Version = "2012-10-17"
-        Statement = [{
-            Effect = "Allow"
-            Action = [
-                "s3:ListBucket",
-                "s3:PutObject",
-                "s3:GetObject",
-                "s3:DeleteObject"
-            ]
-            
-            Resource = [
-                data.aws_s3_bucket.app_dev.arn
-            ]
-        }]
+        Statement = [
+            {
+                Effect = "Allow"
+                Action = [
+                    "s3:ListBucket",
+                ]
+                
+                Resource = [
+                    data.aws_s3_bucket.app_dev.arn
+                ]
+            },
+            {
+                Effect = "Allow"
+                Action = [
+                    "s3:PutObject",
+                    "s3:GetObject",
+                    "s3:DeleteObject"
+                ]
+                
+                Resource = [
+                    "${data.aws_s3_bucket.app_dev.arn}/icons/*"
+                ]
+            }
+        ]
     })
 }
 
