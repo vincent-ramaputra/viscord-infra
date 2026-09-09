@@ -37,7 +37,12 @@ read:
 
 chunksCache:
   allocatedMemory: 1024
-  allocatedCPU: 250m
+  allocatedCPU: 100m
+
+resultsCache:
+  allocatedMemory: 512
+  allocatedCPU: 100m
+
   
 serviceAccount:
     create: false
