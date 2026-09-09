@@ -77,6 +77,7 @@ module "app_cluster" {
 
 module "app_cluster_node_group_spot" {
     source = "terraform-aws-modules/eks/aws//modules/eks-managed-node-group"
+    version = "v21.25.0"
     
     name = "dev-app-nodes"
     cluster_name = module.app_cluster.cluster_name
