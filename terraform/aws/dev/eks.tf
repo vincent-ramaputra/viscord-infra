@@ -27,17 +27,20 @@ module "app_cluster" {
             })
         }
         coredns = {
-            most_recent = true
+            addon_version = "v1.14.3-eksbuild.16"
         }
         kube-proxy = {
-            most_recent = true
+            addon_version = "v1.36.0-eksbuild.17"
         }
         eks-pod-identity-agent = {
-            most_recent = true
+            addon_version = "v1.4.0-eksbuild.2"
             before_compute = true
         }
         aws-ebs-csi-driver = {
-            most_recent = true
+            addon_version = "v1.65.0-eksbuild.1"
+        }
+        metrics-server = {
+            addon_version = "v0.9.0-eksbuild.9"
         }
     }
 
