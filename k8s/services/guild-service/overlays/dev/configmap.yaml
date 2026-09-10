@@ -16,7 +16,7 @@ data:
   USER_SERVICE_GRPC_PORT: "5000"
   MESSAGE_SERVICE_HOST: "message-service"
   MESSAGE_SERVICE_PORT: "3000"
-  USER_SERVICE_GRPC_PORT: "5000"
+  MESSAGE_SERVICE_GRPC_PORT: "5000"
   RMQ_HOST: "message-broker-service"
   RMQ_PORT: "5672"
   REDIS_HOST: "redis-service"
