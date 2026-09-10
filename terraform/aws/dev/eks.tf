@@ -44,31 +44,6 @@ module "app_cluster" {
         }
     }
 
-    # eks_managed_node_groups = {
-    #     spot = {
-    #         name = "dev-app-nodes"
-    #         instance_types = ["t3.large"]
-    #         capacity_type = "SPOT"
-    #         min_size = 1
-    #         max_size = 3
-    #         desired_size = 1
-
-
-    #         cloudinit_pre_nodeadm = [{
-    #             content_type = "application/node.eks.aws"
-    #             content      = <<-EOT
-    #               apiVersion: node.eks.aws/v1alpha1
-    #               kind: NodeConfig
-    #               spec:
-    #                 kubelet:
-    #                   config:
-    #                     maxPods: 110
-    #             EOT
-    #         }]
-    #     }
-    # }
-
-
     tags = {
         Terraform = "true",
         Environment = "dev"
@@ -125,4 +100,12 @@ resource "aws_eks_access_policy_association" "app_cluster_administrator" {
     access_scope {
       type = "cluster"
     }
+}
+
+resource "aws_vpc_security_group_ingress_rule" "rds_from_cluster" {
+    security_group_id            = data.aws_security_group.app_db.id
+    referenced_security_group_id = module.app_cluster.node_security_group_id
+    ip_protocol                  = "tcp"
+    from_port                    = 5432
+    to_port                      = 5432
 }
