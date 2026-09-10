@@ -24,7 +24,7 @@ resource "aws_iam_role_policy" "loki" {
                     "s3:ListBucket"
                 ]
                 Resource = [
-                    data.aws_s3_bucket.loki_dev.arn
+                    data.aws_s3_bucket.observability_dev.arn
                 ]
             },
             {
@@ -35,7 +35,7 @@ resource "aws_iam_role_policy" "loki" {
                     "s3:DeleteObject"
                 ]
                 Resource = [
-                    "${data.aws.s3_bucket.loki_dev.arn}/*"
+                    "${data.aws_s3_bucket.observability_dev.arn}/*"
                 ]
             },
 
@@ -43,7 +43,7 @@ resource "aws_iam_role_policy" "loki" {
     })
 }
 
-resource "aws_eks_pod_identity_association" "eso" {
+resource "aws_eks_pod_identity_association" "loki" {
     cluster_name = module.app_cluster.cluster_name
     service_account = "loki-ksa"
     namespace = "loki"
