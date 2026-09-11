@@ -15,7 +15,7 @@ config:
     pipelines:
       traces:
         receivers:
-        - otl p
+        - otlp
         processors:
         - k8sattributes
         - batch
