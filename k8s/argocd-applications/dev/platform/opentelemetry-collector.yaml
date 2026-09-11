@@ -13,7 +13,7 @@ spec:
       targetRevision: 0.160.0
       helm:
         valueFiles:
-          - $values/k8s/platform/opentelemetry/values/dev.yaml
+          - $values/k8s/platform/opentelemetry-collector/values/dev.yaml
     - repoURL: https://github.com/Laevateinn17/viscord-infra.git
       targetRevision: HEAD
       ref: values
