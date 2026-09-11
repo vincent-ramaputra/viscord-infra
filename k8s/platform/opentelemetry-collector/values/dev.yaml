@@ -1,0 +1,29 @@
+mode: deployment
+
+config:
+  receivers:
+    otlp:
+      protocols:
+        http:
+          endpoint: 0.0.0.0:4318
+  processors:
+    k8sattributes:
+    batch:
+  exporters:
+    debug:
+      
+
+presets:
+  kubernetesAttributes: 
+    enabled: true
+
+pipelines:
+  traces:
+    receivers:
+    - oltp
+    processors:
+    - k8sattributes
+    - batch
+    exporters:
+    - debug
+
