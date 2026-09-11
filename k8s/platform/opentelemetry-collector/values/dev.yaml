@@ -11,19 +11,19 @@ config:
     batch:
   exporters:
     debug:
+  service:
+    pipelines:
+      traces:
+        receivers:
+        - oltp
+        processors:
+        - k8sattributes
+        - batch
+        exporters:
+        - debug
+
       
 
 presets:
   kubernetesAttributes: 
     enabled: true
-
-pipelines:
-  traces:
-    receivers:
-    - oltp
-    processors:
-    - k8sattributes
-    - batch
-    exporters:
-    - debug
-
