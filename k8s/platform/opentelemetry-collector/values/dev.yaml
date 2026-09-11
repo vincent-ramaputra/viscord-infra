@@ -15,15 +15,16 @@ config:
     pipelines:
       traces:
         receivers:
-        - otlp
+        - otl p
         processors:
         - k8sattributes
         - batch
         exporters:
         - debug
 
-      
-
 presets:
   kubernetesAttributes: 
     enabled: true
+
+image:
+    repository: otel/opentelemetry-collector-k8s
