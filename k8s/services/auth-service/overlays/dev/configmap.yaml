@@ -9,7 +9,7 @@ data:
   APP_PORT: "3000"
   # DB_HOST: "localhost"
   # DB_PORT: "5432"
-  OTEL_EXPORTER_OTLP_ENDPOINT: "opentelemetry-collector:4318"
+  OTEL_EXPORTER_OTLP_ENDPOINT: "http://opentelemetry-collector.monitoring.:4318"
   DB_NAME: "viscord_auth"
   DB_SSL_REJECT_UNAUTHORIZED: "false"
   USER_SERVICE_HOST: "user-service"
