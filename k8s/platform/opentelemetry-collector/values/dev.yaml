@@ -10,7 +10,7 @@ config:
     k8sattributes: {}
     batch: {}
   exporters:
-    debug:
+    debug: {}`
   service:
     pipelines:
       traces:
