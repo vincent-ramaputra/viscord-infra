@@ -1,0 +1,33 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: tempo
+  namespace: monitoring
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  sources: 
+    - repoURL: https://grafana-community.github.io/helm-charts
+      chart: tempo-distributed
+      targetRevision: 7.0.0
+      helm:
+        valueFiles:
+          - $values/k8s/platform/tempo/values/dev.yaml
+    - repoURL: https://github.com/Laevateinn17/viscord-infra.git
+      targetRevision: HEAD
+      ref: values
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: monitoring
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    retry:
+      limit: -1
+      refresh: true
+    syncOptions:
+      - PruneLast=true
+      - CreateNamespace=true
+      - ServerSideApply=true
