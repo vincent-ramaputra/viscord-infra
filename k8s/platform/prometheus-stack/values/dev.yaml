@@ -4,6 +4,10 @@ grafana:
       type: loki
       access: proxy
       url: http://loki-gateway.loki.svc.cluster.local
+    - name: tempo
+      type: tempo
+      access: proxy
+      url: http://tempo-query-frontend.monitoring
   admin:
     existingSecret: grafana-admin-secret
     userKey: user
