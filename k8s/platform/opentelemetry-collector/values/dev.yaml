@@ -23,7 +23,7 @@ config:
         - k8sattributes
         - batch
         exporters:
-        - debug
+        - otlp
 
 presets:
   kubernetesAttributes: 
