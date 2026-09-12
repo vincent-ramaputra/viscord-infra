@@ -5,6 +5,11 @@ storage:
       bucket: viscord-observability-dev
       endpoint: s3.ap-southeast-3.amazonaws.com
 
+traces:
+  otlp:
+    grpc:
+      enabled: true
+
 blockBuilder:
   enabled: false
 

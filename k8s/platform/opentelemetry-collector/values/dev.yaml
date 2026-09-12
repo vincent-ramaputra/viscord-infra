@@ -10,8 +10,8 @@ config:
     k8sattributes: {}
     batch: {}
   exporters:
-    debug:
-      verbosity: detailed
+    otlp:
+      endpoint: http://tempo-distributor.monitoring:3200
   service:
     pipelines:
       traces:
