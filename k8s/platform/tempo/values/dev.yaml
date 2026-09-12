@@ -3,6 +3,7 @@ storage:
     backend: s3
     s3:
       bucket: viscord-observability-dev
+      endpoint: viscord-observability-dev.s3.ap-southeast-3.amazonaws.com
 
 blockBuilder:
   enabled: false
