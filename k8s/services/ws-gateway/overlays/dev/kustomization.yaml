@@ -9,4 +9,4 @@ patches:
 - path: ./deployment-patch.yaml
 images:
 - name: vincentramaputra/viscord-ws-gateway
-  newTag: sha-3fd042d
+  newTag: sha-869bf36
