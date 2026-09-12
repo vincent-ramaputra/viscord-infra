@@ -3,3 +3,6 @@ storage:
     backend: s3
     s3:
       bucket: viscord-observability-dev
+
+blockbuilder:
+  enabled: false
