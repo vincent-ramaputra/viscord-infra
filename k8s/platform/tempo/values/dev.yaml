@@ -6,3 +6,6 @@ storage:
 
 blockbuilder:
   enabled: false
+  
+livestore:
+  enabled: false
