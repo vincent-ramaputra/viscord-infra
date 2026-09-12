@@ -7,7 +7,7 @@ grafana:
     - name: tempo
       type: tempo
       access: proxy
-      url: http://tempo-query-frontend.monitoring
+      url: http://tempo-query-frontend.monitoring:3200
   admin:
     existingSecret: grafana-admin-secret
     userKey: user
