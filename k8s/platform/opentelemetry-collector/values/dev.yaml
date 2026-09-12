@@ -11,7 +11,7 @@ config:
     batch: {}
   exporters:
     otlp:
-      endpoint: http://tempo-distributor.monitoring:3200
+      endpoint: http://tempo-distributor.monitoring:4317
   service:
     pipelines:
       traces:
