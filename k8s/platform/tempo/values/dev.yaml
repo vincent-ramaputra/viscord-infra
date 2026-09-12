@@ -4,8 +4,8 @@ storage:
     s3:
       bucket: viscord-observability-dev
 
-blockbuilder:
+blockBuilder:
   enabled: false
-  
-livestore:
+
+liveStore:
   enabled: false
