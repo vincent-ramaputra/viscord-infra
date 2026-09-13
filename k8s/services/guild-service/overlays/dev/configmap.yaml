@@ -8,7 +8,7 @@ data:
   NODE_ENV: "development"
   APP_PORT: "3000"
   GRPC_PORT: "5000"
-  DB_HOST: "pgbouncer-config"
+  DB_HOST: "pgbouncer-service"
   DB_PORT: "5432"
   DB_NAME: "viscord_guild"
   USER_SERVICE_HOST: "user-service"
