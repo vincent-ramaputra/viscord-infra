@@ -1,0 +1,13 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pgbouncer-deployment
+spec:
+  template:
+    spec:
+      containers:
+      - name: pgbouncer
+        image: edoburu/pgbouncer:v1.25.2-p0
+        ports:
+        - name: psql
+          containerPort: 5432
