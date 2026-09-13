@@ -16,6 +16,6 @@ spec:
             name: message-secret
         ports:
         - name: http
-          containerPort: 3000
+          containerPort: 8080
         - name: grpc
-          containerPort: 5000
+          containerPort: 9090
