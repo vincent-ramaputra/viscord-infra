@@ -123,3 +123,61 @@ resource "aws_eks_pod_identity_association" "guild_service" {
     namespace = "default"
     role_arn = aws_iam_role.guild_service.arn
 }
+
+resource "aws_iam_role" "message_service" {
+    name = "message-service-dev"
+    assume_role_policy = jsonencode({
+        Version = "2012-10-17"
+        Statement = [{
+            Effect = "Allow"
+            Principal = { Service = "pods.eks.amazonaws.com" }
+            Action = [
+                "sts:AssumeRole",
+                "sts:TagSession"
+            ]
+        }]
+    })
+
+    tags = {
+        Terraform = "true"
+        Environment = "dev"
+    }
+}
+
+resource "aws_iam_role_policy" "message_service" {
+    role = aws_iam_role.message_service.id
+    policy = jsonencode({
+        Version = "2012-10-17"
+        Statement = [
+            {
+                Effect = "Allow"
+                Action = [
+                    "s3:ListBucket",
+                ]
+                
+                Resource = [
+                    data.aws_s3_bucket.app_dev.arn
+                ]
+            },
+            {
+                Effect = "Allow"
+                Action = [
+                    "s3:PutObject",
+                    "s3:GetObject",
+                    "s3:DeleteObject"
+                ]
+                
+                Resource = [
+                    "${data.aws_s3_bucket.app_dev.arn}/messages/attachments/*"
+                ]
+            }
+        ]
+    })
+}
+
+resource "aws_eks_pod_identity_association" "message_service" {
+    cluster_name = module.app_cluster.cluster_name
+    service_account = "message-ksa"
+    namespace = "default"
+    role_arn = aws_iam_role.message_service.arn
+}

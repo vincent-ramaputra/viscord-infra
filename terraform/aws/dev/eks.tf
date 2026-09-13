@@ -74,9 +74,9 @@ module "app_cluster_node_group_spot" {
             apiVersion: node.eks.aws/v1alpha1
             kind: NodeConfig
             spec:
-            kubelet:
+              kubelet:
                 config:
-                maxPods: 110
+                  maxPods: 110
         EOT
     }]
 
