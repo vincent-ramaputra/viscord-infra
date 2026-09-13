@@ -8,8 +8,8 @@ spec:
       containers:
       - name: pgbouncer
         envFrom:
-        # - configMapRef:
-        #     name: db-config
+        - configMapRef:
+            name: db-config
         - configMapRef:
             name: pgbouncer-config
         - secretRef:

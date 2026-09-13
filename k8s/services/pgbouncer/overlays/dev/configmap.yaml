@@ -6,6 +6,6 @@ data:
   AUTH_TYPE: "scram-sha-256"
   POOL_MODE: "transaction"
   DEFAULT_POOL_SIZE: "4"
-  MAX_USER_CONNECTIONS: "4"
+  # MAX_USER_CONNECTIONS: "4"
   MAX_CLIENT_CONN: "500"
   SERVER_TLS_SSLMODE: "require"
