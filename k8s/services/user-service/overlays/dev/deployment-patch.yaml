@@ -8,6 +8,11 @@ spec:
     spec:
       containers:
         - name: user
+          envFrom:
+          - configMapRef:
+              name: user-configmap
+          - secretRef:
+              name: user-db-secret
           resources:
             requests:
               memory: "128Mi"

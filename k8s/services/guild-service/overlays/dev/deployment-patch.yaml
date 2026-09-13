@@ -9,8 +9,8 @@ spec:
       containers:
         - name: guild
           envFrom:
-          - configMapRef:
-              name: db-config
+          # - configMapRef:
+          #     name: db-config
           - configMapRef:
               name: guild-configmap
           - secretRef:

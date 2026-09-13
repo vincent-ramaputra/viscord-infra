@@ -9,13 +9,6 @@ spec:
       containers:
         - name: user
           image: vincentramaputra/viscord-user-service
-          envFrom:
-          - configMapRef:
-              name: user-configmap
-          - configMapRef:
-              name: db-config
-          - secretRef:
-              name: user-db-secret
           ports:
           - name: http
             containerPort: 3000

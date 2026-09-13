@@ -9,8 +9,8 @@ spec:
       containers:
         - name: auth
           envFrom:
-          - configMapRef:
-              name: db-config
+          # - configMapRef:
+          #     name: db-config
           - configMapRef:
               name: auth-configmap
           - secretRef:

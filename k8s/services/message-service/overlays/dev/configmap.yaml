@@ -5,7 +5,9 @@ metadata:
   labels:
     app: message
 data:
-  DB_NAME: viscord_message 
-  GUILD_SERVICE_GRPC_ADDR: guild-service:5000
+  DB_HOST: "pgbouncer-service"
+  DB_PORT: "5432"
+  DB_NAME: "viscord_message"
+  GUILD_SERVICE_GRPC_ADDR: "guild-service:5000"
   BUCKET_NAME: "viscord-dev-409684965426-ap-southeast-3-an"
   S3_REGION: "ap-southeast-3"
