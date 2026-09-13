@@ -9,8 +9,8 @@ spec:
       containers:
         - name: message
           envFrom:
-          - configMapRef:
-              name: db-config
+          # - configMapRef:
+          #     name: db-config
           - configMapRef:
               name: message-configmap
           - secretRef:
