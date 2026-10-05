@@ -1,0 +1,215 @@
+# Single-host demo stack for Viscord: everything on one EC2 instance.
+# Setup steps are in README.md; values come from .env (copy .env.example).
+#
+# Only caddy (80/443) and sfu-service (WebRTC UDP range) publish ports. Every other
+# container is reachable only on the compose network. That matters: the backends trust
+# X-User-Id blindly, so publishing one of their ports would make it unauthenticated.
+
+name: viscord
+
+x-restart: &restart
+  restart: unless-stopped
+  logging:
+    driver: json-file
+    options: { max-size: "10m", max-file: "3" } # keep logs from filling the disk
+
+# Shared by the NestJS services.
+x-node-env: &node-env
+  NODE_ENV: production
+  # No collector in this stack. The endpoint must still be a valid URL for the exporter.
+  OTEL_SDK_DISABLED: "true"
+  OTEL_EXPORTER_OTLP_ENDPOINT: http://localhost:4318
+  RMQ_HOST: rabbitmq
+  RMQ_PORT: "5672"
+  REDIS_HOST: redis
+  REDIS_PORT: "6379"
+
+x-db-env: &db-env
+  DB_HOST: postgres
+  DB_PORT: "5432"
+  DB_USER: viscord
+  DB_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
+  DB_SSL: "false"
+
+# Blank access keys = AWS SDK default credential chain = the EC2 instance profile.
+x-s3-env: &s3-env
+  BUCKET_NAME: ${BUCKET_NAME:?set BUCKET_NAME in .env}
+  S3_REGION: ${S3_REGION:?set S3_REGION in .env}
+  CDN_ENDPOINT: ${CDN_ENDPOINT:?set CDN_ENDPOINT in .env}
+  S3_ACCESS_KEY_ID: ${S3_ACCESS_KEY_ID:-}
+  S3_ACCESS_KEY_SECRET: ${S3_ACCESS_KEY_SECRET:-}
+
+x-needs-infra: &needs-infra
+  postgres: { condition: service_healthy }
+  rabbitmq: { condition: service_healthy }
+  redis: { condition: service_healthy }
+
+services:
+  # ---------- edge ----------
+  caddy:
+    <<: *restart
+    image: caddy:2-alpine
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp" # HTTP/3
+    environment:
+      DOMAIN: ${DOMAIN:?set DOMAIN in .env}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data # TLS certs; losing this re-requests them from Let's Encrypt (rate limited)
+      - caddy_config:/config
+    depends_on: [auth-service, web]
+
+  # ---------- data stores ----------
+  postgres:
+    <<: *restart
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: viscord
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      # Runs only on first start (empty volume): creates one database per service.
+      - ./postgres-init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U viscord"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  redis:
+    <<: *restart
+    image: redis:7-alpine
+    command: ["redis-server", "--save", "", "--appendonly", "no"] # presence/voice state is ephemeral
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  rabbitmq:
+    <<: *restart
+    image: rabbitmq:4.0-alpine
+    hostname: rabbitmq # RabbitMQ names its data dir after the hostname; keep it stable
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    # Services connect as the default guest/guest user (amqp://host:port, no credentials).
+    # The official image allows guest from non-localhost, and the broker isn't published.
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 10s
+      timeout: 10s
+      retries: 20
+      start_period: 20s
+
+  # ---------- services ----------
+  auth-service:
+    <<: *restart
+    image: vincentramaputra/viscord-auth-service:${AUTH_TAG:-sha-1de7047}
+    environment:
+      <<: [*node-env, *db-env]
+      APP_PORT: "3000"
+      DB_NAME: viscord_auth
+      JWT_SECRET: ${JWT_SECRET:?set JWT_SECRET in .env}
+      USER_SERVICE_HOST: user-service
+      USER_SERVICE_PORT: "3000"
+    depends_on: *needs-infra
+
+  user-service:
+    <<: *restart
+    image: vincentramaputra/viscord-user-service:${USER_TAG:-sha-25efb63}
+    environment:
+      <<: [*node-env, *db-env, *s3-env]
+      APP_PORT: "3000"
+      GRPC_PORT: "5000"
+      DB_NAME: viscord_user
+      AUTH_SERVICE_HOST: auth-service
+      AUTH_SERVICE_PORT: "3000"
+      GUILDS_SERVICE_HOST: guild-service
+      GUILDS_SERVICE_PORT: "3000"
+    depends_on: *needs-infra
+
+  guild-service:
+    <<: *restart
+    image: vincentramaputra/viscord-guild-service:${GUILD_TAG:-sha-756b469}
+    environment:
+      <<: [*node-env, *db-env, *s3-env]
+      APP_PORT: "3000"
+      GRPC_PORT: "5000"
+      DB_NAME: viscord_guild
+      USER_SERVICE_HOST: user-service
+      USER_SERVICE_PORT: "3000"
+      USER_SERVICE_GRPC_PORT: "5000"
+      MESSAGE_SERVICE_HOST: message-service
+      MESSAGE_SERVICE_PORT: "8080"
+      MESSAGE_SERVICE_GRPC_PORT: "9090"
+      # Returned to the browser with each voice ticket; the client opens a Socket.IO connection to it.
+      SFU_PUBLIC_URL: https://sfu.${DOMAIN}
+      SFU_TICKET_PRIVATE_KEY: ${SFU_TICKET_PRIVATE_KEY:?set SFU_TICKET_PRIVATE_KEY in .env}
+    depends_on: *needs-infra
+
+  message-service:
+    <<: *restart
+    image: vincentramaputra/viscord-message-service:${MESSAGE_TAG:-sha-bc1698a}
+    environment:
+      <<: [*db-env, *s3-env]
+      DB_NAME: viscord_message
+      GUILD_SERVICE_GRPC_ADDR: guild-service:5000
+      RMQ_HOST: rabbitmq # publishes MESSAGE_CREATED to channel_queue; no default, so startup fails without it
+      RMQ_PORT: "5672"
+      SPRING_JPA_SHOW_SQL: "false" # application.properties logs every SQL statement otherwise
+      # Without a cap the JVM sizes its heap from host RAM, not from what's left after the other containers.
+      JAVA_TOOL_OPTIONS: -Xmx384m -XX:+UseSerialGC
+    depends_on:
+      postgres: { condition: service_healthy }
+      rabbitmq: { condition: service_healthy }
+
+  ws-gateway:
+    <<: *restart
+    image: vincentramaputra/viscord-ws-gateway:${WS_GATEWAY_TAG:-sha-660ae12}
+    environment:
+      <<: *node-env
+      WS_PORT: "3000"
+      GUILD_SERVICE_HOST: guild-service
+      GUILD_SERVICE_PORT: "3000"
+      GUILD_SERVICE_GRPC_PORT: "5000"
+      USER_SERVICE_HOST: user-service
+      USER_SERVICE_PORT: "3000"
+      USER_SERVICE_GRPC_PORT: "5000"
+      # Legacy HTTP signaling path (src/sfu); the client now talks to the SFU directly.
+      SFU_SERVICE_HOST: sfu-service
+      SFU_SERVICE_PORT: "3000"
+    depends_on: *needs-infra
+
+  sfu-service:
+    <<: *restart
+    image: vincentramaputra/viscord-sfu-service:${SFU_TAG:-sha-8a22773}
+    environment:
+      PORT: "3000"
+      # Public IP put in ICE candidates. If it's wrong, signaling works but no audio flows.
+      HOST: ${PUBLIC_IP:?set PUBLIC_IP in .env (the Elastic IP)}
+      RTC_MIN_PORT: "40000"
+      RTC_MAX_PORT: "40099"
+      SFU_INSTANCE: sfu-1
+      TICKET_PUBLIC_KEY: ${SFU_TICKET_PUBLIC_KEY:?set SFU_TICKET_PUBLIC_KEY in .env}
+      AMQP_URL: amqp://guest:guest@rabbitmq:5672
+    # Container port must equal host port: mediasoup advertises PUBLIC_IP:<port it bound>.
+    # 100 ports = 50 concurrent voice users (2 transports each). Open the same range in the security group.
+    ports:
+      - "40000-40099:40000-40099/udp"
+    depends_on:
+      rabbitmq: { condition: service_healthy }
+
+  web:
+    <<: *restart
+    image: vincentramaputra/viscord-web:${WEB_TAG:-sha-0b496c9}
+    environment:
+      HOSTNAME: 0.0.0.0
+      PORT: "3000"
+
+volumes:
+  pgdata:
+  rabbitmq_data:
+  caddy_data:
+  caddy_config:
