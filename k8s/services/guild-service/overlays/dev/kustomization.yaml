@@ -14,4 +14,4 @@ patches:
 - path: ./serviceaccount-patch.yaml
 images:
 - name: vincentramaputra/viscord-guild-service
-  newTag: sha-7bc51dc
+  newTag: sha-6cb2688
