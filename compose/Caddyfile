@@ -1,0 +1,72 @@
+# Caddy replaces Traefik here: automatic Let's Encrypt TLS, path routing, and the same
+# ForwardAuth check (auth-service /auth/verify-token -> X-User-Id) the k8s IngressRoutes used.
+
+(require_login) {
+	forward_auth auth-service:3000 {
+		uri /auth/verify-token
+		copy_headers X-User-Id
+	}
+}
+
+{$DOMAIN} {
+	encode zstd gzip
+
+	@messages expression `path('/api/messages*') || path_regexp('^/api/channels/[^/]+/messages')`
+	@guild path /api/guilds* /api/users/me/channels* /api/invites* /api/channels*
+	@user path /api/users* /api/user-profiles* /api/relationships*
+	@gateway path /socket.io* /ws*
+
+	# Inside `route`, handle blocks are tried top to bottom (outside it, Caddy re-sorts them),
+	# so more specific prefixes must come first, the same way the IngressRoute matchers excluded each other.
+	route {
+		# Backends trust X-User-Id without checking it, so drop any client-sent value before routing.
+		# Only forward_auth may set it.
+		request_header -X-User-Id
+
+		handle /api/auth* {
+			uri strip_prefix /api
+			reverse_proxy auth-service:3000
+		}
+
+		handle @messages {
+			import require_login
+			uri strip_prefix /api
+			reverse_proxy message-service:8080
+		}
+
+		handle @guild {
+			import require_login
+			uri strip_prefix /api
+			reverse_proxy guild-service:3000
+		}
+
+		handle @user {
+			import require_login
+			uri strip_prefix /api
+			reverse_proxy user-service:3000
+		}
+
+		# Socket.IO (namespace /ws, transport path /socket.io); websocket upgrades are proxied automatically.
+		handle @gateway {
+			import require_login
+			reverse_proxy ws-gateway:3000
+		}
+
+		handle /api/* {
+			respond 404
+		}
+
+		handle {
+			reverse_proxy web:3000
+		}
+	}
+}
+
+# The SFU needs its own origin: its Socket.IO server uses the default /socket.io path, which
+# ws-gateway already owns on the main domain. Auth here is the voice ticket, not the cookie.
+sfu.{$DOMAIN} {
+	reverse_proxy sfu-service:3000 {
+		# sfu-service hardcodes CORS origin https://localhost:3002 (src/index.ts:35); override it.
+		header_down Access-Control-Allow-Origin https://{$DOMAIN}
+	}
+}
