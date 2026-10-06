@@ -11,7 +11,7 @@
 {$DOMAIN} {
 	encode zstd gzip
 
-	@messages expression `path('/api/messages*') || path_regexp('^/api/channels/[^/]+/messages')`
+	@messages expression `path('/api/messages*') || path_regexp('^/api/channels/[^/]+/(messages|attachments)')`
 	@guild path /api/guilds* /api/users/me/channels* /api/invites* /api/channels*
 	@user path /api/users* /api/user-profiles* /api/relationships*
 	@gateway path /socket.io* /ws*
