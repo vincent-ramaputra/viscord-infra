@@ -11,5 +11,6 @@ data:
   GUILD_SERVICE_GRPC_ADDR: "guild-service:5000"
   RMQ_HOST: "message-broker-service"
   RMQ_PORT: "5672"
+  CDN_ENDPOINT: "https://cdn.dev.viscord.app"
   BUCKET_NAME: "viscord-dev-409684965426-ap-southeast-3-an"
   S3_REGION: "ap-southeast-3"
